@@ -1,9 +1,9 @@
-package com.airport_simulation.queues;
+package com.airport_sim_2.queues;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import com.airport_simulation.objects.Aircraft;
+import com.airport_sim_2.objects.Aircraft;
 
 public class HoldingPattern implements AircraftQueue {
     // TEMP CONSTANTS
