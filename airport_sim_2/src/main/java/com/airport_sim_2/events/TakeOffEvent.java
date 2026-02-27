@@ -1,6 +1,5 @@
-package com.airport_sim_2.simulation.events;
+package com.airport_sim_2.events;
 import com.airport_sim_2.objects.Aircraft;
-import com.airport_sim_2.simulation.SimulationContext;
 import java.time.LocalDateTime;
 
 public class TakeOffEvent extends RunwayEvent {

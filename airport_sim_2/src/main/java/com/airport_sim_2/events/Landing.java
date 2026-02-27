@@ -1,4 +1,4 @@
-package com.airport_sim_2.simulation.events;
+package com.airport_sim_2.events;
 import com.airport_sim_2.objects.*;
 
 

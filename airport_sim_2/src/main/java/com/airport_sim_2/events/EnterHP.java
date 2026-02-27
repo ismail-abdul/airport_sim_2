@@ -1,6 +1,5 @@
 package com.airport_sim_2.events;
 import com.airport_sim_2.objects.Aircraft;
-import com.airport_sim_2.model.SimulationContext;
 
 public class EnterHP extends AbstractEvent {
 

@@ -1,6 +1,5 @@
-package com.airport_sim_2.simulation.events;
+package com.airport_sim_2.events;
 import com.airport_sim_2.objects.RunwayOpMode;
-import com.airport_sim_2.simulation.SimulationContext;
 
 public class RunwayModeChangeEvent extends RunwayEvent {
     private final RunwayOpMode newMode;

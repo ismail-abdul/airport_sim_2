@@ -1,6 +1,4 @@
-package com.airport_sim_2.simulation.events;
-
-import com.airport_sim_2.simulation.SimulationContext;
+package com.airport_sim_2.events;
 
 public abstract class RunwayEvent extends AbstractEvent {
     protected final int runwayId;

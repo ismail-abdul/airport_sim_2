@@ -1,4 +1,4 @@
-package com.airport_sim_2.simulation.events;
+package com.airport_sim_2.events;
 
 // This events is dispatched to the UI
 public class LeaveHP extends AbstractAircraftEvent { 

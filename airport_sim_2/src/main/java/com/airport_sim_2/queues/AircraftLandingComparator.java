@@ -1,6 +1,6 @@
-package com.airport_simulation.queues;
-import com.airport_simulation.objects.Aircraft;
+package com.airport_sim_2.queues;
 import java.util.Comparator;
+import com.airport_sim_2.objects.Aircraft;
 
 public class AircraftLandingComparator implements Comparator<Aircraft> {
     @Override
@@ -9,7 +9,10 @@ public class AircraftLandingComparator implements Comparator<Aircraft> {
         if (priorityCompare != 0) {
             return priorityCompare;
         }
-        // NOTE - Will implement arrivalTime method after technical team makes decision.
-        return a1.getArrivalTime().compareTo(a2.getArrivalTime());
+
+        return Long.compare(a1.getSequenceNumber(), a2.getSequenceNumber());
     }
 }
+
+
+

@@ -1,8 +1,7 @@
-package com.airport_simulation.queues;
+package com.airport_sim_2.queues;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import com.airport_simulation.objects.Aircraft;
+import com.airport_sim_2.objects.Aircraft;
 
 
 public class TakeOffQueue implements AircraftQueue {
