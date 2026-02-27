@@ -1,4 +1,5 @@
 package com.airport_sim_2.queues;
+package com.airport_sim_2.queues;
 import java.util.LinkedList;
 import java.util.Queue;
 import com.airport_sim_2.objects.Aircraft;
