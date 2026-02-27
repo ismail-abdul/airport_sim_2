@@ -3,6 +3,6 @@ Fresh attempt at CS261 SWE project. Based on old version of airport_sim
 
 # Backend Steps
 
-[] Define a Model
-[] Define a Controller
-[] Create working CLI/GUI prototype (doesn't need to be perfect)
+[] Define application flow conceptually & concretely
+[] Make mock designs in JavaFX
+[] Test frontend behaviour. Does it emit and respond to events?
