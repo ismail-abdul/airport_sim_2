@@ -1,7 +1,7 @@
 # airport_sim_2
 Fresh attempt at CS261 SWE project. Based on old version of airport_sim
 
-# Backend Steps
+# Frontend Steps
 
 [] Define application flow conceptually & concretely
 [] Make mock designs in JavaFX
