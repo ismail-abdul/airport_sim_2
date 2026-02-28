@@ -1,4 +1,5 @@
 package com.airport_sim_2.events;
+import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.RunwayOpMode;
 
 public class RunwayModeChangeEvent extends RunwayEvent {
@@ -12,12 +13,12 @@ public class RunwayModeChangeEvent extends RunwayEvent {
     public void process(SimulationContext context) {
         // change runway mode
         context.getRunway(runwayId).setMode(newMode);
-        if (newMode == RunwayOpMode.TAKE_OFF || newMode == RunwayOpMode.MIXED) {
+        if (newMode == RunwayOpMode.TAKE_OFF || newMode == RunwayOpMode.MIXED_MODE) {
             if (!context.getTakeOffQueue().isEmpty() && context.isRunwayAvailable(runwayId)) {
                 context.scheduleEvent(new TakeOffEvent(eventTime, runwayId));
             }
         }
-        if (newMode == RunwayOpMode.LANDING || newMode == RunwayOpMode.MIXED) {
+        if (newMode == RunwayOpMode.LANDING || newMode == RunwayOpMode.MIXED_MODE) {
             context.tryScheduleLanding(runwayId);
         }
     }

@@ -5,4 +5,5 @@ public interface AircraftQueue {
     void enqueue(Aircraft aircraft);
     Aircraft dequeue();
     int size();
+    boolean isEmpty();
 }

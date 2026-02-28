@@ -1,4 +1,5 @@
 package com.airport_sim_2.events;
+import com.airport_sim_2.model.SimulationContext;
 
 public abstract class AbstractEvent implements Event {
 
@@ -19,5 +20,5 @@ public abstract class AbstractEvent implements Event {
     }
  
     @Override
-    public abstract void process(SimulationContext context) {}
+    public abstract void process(SimulationContext context);
 }

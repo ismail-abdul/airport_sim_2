@@ -10,9 +10,7 @@ public class RunwayFreeEvent extends RunwayEvent {
         context.getRunway(runwayId).setOccupied(false);
         // try to schedule next takeoff
         if (!context.getTakeOffQueue().isEmpty()) {
-            context.scheduleEvent(
-                    new TakeOffEvent(eventTime, runwayId)
-            );
+            context.scheduleEvent(new TakeOffEvent(eventTime, runwayId));
         }
         // try to schedule landing
         context.tryScheduleLanding(runwayId);

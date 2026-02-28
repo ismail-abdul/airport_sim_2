@@ -1,4 +1,5 @@
 package com.airport_sim_2.events;
+import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
 
 public class EnterHP extends AbstractEvent {
@@ -17,9 +18,7 @@ public class EnterHP extends AbstractEvent {
         context.getStatistics().updateMaxHoldingSize(context.getHoldingPattern().size());
         // If runway available, schedule landing immediately
         if (context.isLandingRunwayAvailable()) {
-            context.scheduleEvent(
-                    new LandingEvent(eventTime, aircraft)
-            );
+            context.scheduleEvent(new Landing(eventTime, aircraft));
         }
     }
 }

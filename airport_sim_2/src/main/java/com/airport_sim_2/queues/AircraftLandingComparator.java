@@ -1,5 +1,4 @@
-package com.airport_simulation.queues;
-import com.airport_simulation.objects.Aircraft;
+package com.airport_sim_2.queues;
 import java.util.Comparator;
 import com.airport_sim_2.objects.Aircraft;
 
