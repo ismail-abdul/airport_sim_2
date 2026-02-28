@@ -1,0 +1,38 @@
+#topBar {
+    background-color: #545454;
+    -fx-background-color: #545454;
+}
+
+.toolBarButtons {
+    font-size: 14px;
+    -fx-font-size: 14px;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    background-color: transparent;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.toolBarButtons:hover {
+    -fx-text-fill: #d9d9d9;
+}
+
+.toolBarButtons:pressed {
+    -fx-text-fill: #b4b4b4;
+}
+
+.leftButtons {
+    font-size: 12px;
+    -fx-font-size: 12px;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    background-color: #272727;
+    -fx-background-color: #272727;
+    -fx-text-fill: white;
+}
+
+.leftButtons:hover {
+    background-color: #000000;
+    -fx-background-color: #000000;
+    -fx-text-fill: white;
+}
