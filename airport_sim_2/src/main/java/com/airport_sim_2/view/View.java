@@ -1,9 +1,17 @@
-package com.airport_simulation.view;
+package com.airport_sim_2.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class View extends Application{
     @Override
