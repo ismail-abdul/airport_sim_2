@@ -8,20 +8,6 @@ import org.junit.Test;
 
 import com.airport_simulation.objects.Aircraft;
 import com.airport_simulation.objects.AircraftStatus;
-
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
-    }
     
     @Test
     public void aircraftGettersTest()
