@@ -18,6 +18,10 @@ public class SimulationContext {
     private StatisticsCollector statistics;
     private PriorityQueue<Event> futureEventList;
 
+    public PriorityQueue<Event> getFutureEventList() {
+        return futureEventList;
+    }
+
     public SimulationContext(HoldingPattern holdingPattern, TakeOffQueue takeOffQueue, List<Runway> runways, StatisticsCollector statistics) {
         this.holdingPattern = holdingPattern;
         this.takeOffQueue = takeOffQueue;
