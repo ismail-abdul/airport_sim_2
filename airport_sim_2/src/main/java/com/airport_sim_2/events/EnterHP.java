@@ -1,11 +1,13 @@
 package com.airport_sim_2.events;
+import java.time.LocalDateTime;
+
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
 
 public class EnterHP extends AbstractEvent {
 
     private final Aircraft aircraft;
-    public EnterHP(double eventTime, Aircraft aircraft) {
+    public EnterHP(LocalDateTime eventTime, Aircraft aircraft) {
         super(eventTime);
         this.aircraft = aircraft;
     }
@@ -18,7 +20,7 @@ public class EnterHP extends AbstractEvent {
         context.getStatistics().updateMaxHoldingSize(context.getHoldingPattern().size());
         // If runway available, schedule landing immediately
         if (context.isLandingRunwayAvailable()) {
-            context.scheduleEvent(new Landing(eventTime, aircraft));
+            context.scheduleEvent(new Landing(aircraft, eventTime));
         }
     }
 }

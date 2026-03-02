@@ -1,4 +1,6 @@
 package com.airport_sim_2.events;
+import java.time.LocalDateTime;
+
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
 
@@ -6,7 +8,7 @@ public class Diversion extends AbstractEvent {
 
     private final Aircraft aircraft;
 
-    public Diversion(double eventTime, Aircraft aircraft) {
+    public Diversion(LocalDateTime eventTime, Aircraft aircraft) {
         super(eventTime);
         this.aircraft = aircraft;
     }
