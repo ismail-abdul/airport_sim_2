@@ -15,4 +15,3 @@ public class AircraftLandingComparator implements Comparator<Aircraft> {
 }
 
 
-
