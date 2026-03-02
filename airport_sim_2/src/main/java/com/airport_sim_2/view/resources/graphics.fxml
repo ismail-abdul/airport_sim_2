@@ -10,23 +10,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
   <children>
       <ToolBar id="topBar" prefHeight="40.0" prefWidth="200.0">
         <items>
             <ButtonBar id="leftButtons" prefHeight="40.0" prefWidth="45.0">
               <buttons>
-                <Button id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" text="Start New Simulation" textAlignment="CENTER" />
-                  <Button id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" text="Get Simulation Data" textAlignment="CENTER" />
+                <Button styleClass="leftButtons" id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" text="Start New Simulation" textAlignment="CENTER" />
+                  <Button styleClass="leftButtons" id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" text="Get Simulation Data" textAlignment="CENTER" />
               </buttons>
             </ButtonBar>
             <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                  <Button id="stop" mnemonicParsing="false" text="⏹" />
-                  <Button id="pause" mnemonicParsing="false" text="⏸" />
-                  <Button id="play" mnemonicParsing="false" text="▶" />
-                  <Button id="fastForward" mnemonicParsing="false" text="⏭" />
+                  <Button styleClass="toolBarButtons" id="stop" mnemonicParsing="false" text="⏹" />
+                  <Button styleClass="toolBarButtons" id="pause" mnemonicParsing="false" text="⏸" />
+                  <Button styleClass="toolBarButtons" id="play" mnemonicParsing="false" text="▶" />
+                  <Button styleClass="toolBarButtons" id="fastForward" mnemonicParsing="false" text="⏭" />
               </buttons>
             </ButtonBar>
             <Text id="date" strokeType="OUTSIDE" strokeWidth="0.0" text="Date/Time" />
@@ -74,15 +73,13 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <SplitPane fx:id="middleAndRight" dividerPositions="0.6304347826086957" layoutX="201.0" prefHeight="349.0" prefWidth="439.0">
+            <SplitPane fx:id="middleAndRight" dividerPositions="0.6312785388127854" layoutX="200.0" prefHeight="349.0" prefWidth="440.0">
               <items>
-                <StackPane fx:id="middlePanel" minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="89.0">
-                      <AnchorPane fx:id="middleContent" minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="89.0">
-                        <children>
-                        </children>
-                      </AnchorPane>
-                      <Button fx:id="collapseButton" StackPane.alignment="CENTER_RIGHT" onAction="#collapseButtonPressed" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="244.0" layoutY="161.0" mnemonicParsing="false" text="▶" textAlignment="CENTER" />
-                    </StackPane>
+                  <AnchorPane id="middlePane" prefHeight="347.0" prefWidth="16.0">
+                     <children>
+                        <Button id="collapseButton" fx:id="collapseButton" layoutX="245.0" layoutY="161.0" mnemonicParsing="false" text="▶" />
+                     </children>
+                  </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="343.0">
                      <children>
                         <SplitPane id="rightPanel" dividerPositions="0.4942363112391931" orientation="VERTICAL" prefHeight="349.0" prefWidth="160.0">
