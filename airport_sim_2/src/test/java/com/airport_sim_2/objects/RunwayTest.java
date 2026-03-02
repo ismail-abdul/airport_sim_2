@@ -31,7 +31,7 @@ public class RunwayTest {
         assertTrue("Runway should be occupied", runway.isOccupied());
         assertEquals(plane, runway.getCurrentAircraft());
 
-        // Release the runway
+        //Release the runway
         runway.release();
         assertFalse("Runway should be empty after release", runway.isOccupied());
         assertNull(runway.getCurrentAircraft());
@@ -41,20 +41,20 @@ public class RunwayTest {
     public void testLandingAvailability() {
         Runway runway = new Runway(1, RunwayOpMode.LANDING, RunwayOperationalStatus.AVAILABLE);
         
-        // Base case: Available and Landing mode
+        //Base case: Available and Landing mode
         assertTrue(runway.isAvailableForLanding());
         assertFalse(runway.isAvailableForTakeoff());
 
-        // FR 08: Mixed Mode should allow landing
+        //Mixed Mode should allow landing
         runway.setMode(RunwayOpMode.MIXED_MODE);
         assertTrue(runway.isAvailableForLanding());
 
-        // FR 07: Occupied runway cannot accept landings
+        //Occupied runway cannot accept landings
         runway.occupy(createDummyAircraft());
         assertFalse("Occupied runway cannot accept landing", runway.isAvailableForLanding());
         runway.release();
 
-        // FR 10: Closed/Inspection runway cannot accept landings
+        //Closed/Inspection runway cannot accept landings
         runway.setStatus(RunwayOperationalStatus.INSPECTION);
         assertFalse("Runway under inspection cannot accept landing", runway.isAvailableForLanding());
     }
@@ -63,11 +63,11 @@ public class RunwayTest {
     public void testTakeoffAvailability() {
         Runway runway = new Runway(1, RunwayOpMode.TAKE_OFF, RunwayOperationalStatus.AVAILABLE);
         
-        // Base case: Available and Takeoff mode
+        //Base case: Available and Takeoff mode
         assertTrue(runway.isAvailableForTakeoff());
         assertFalse(runway.isAvailableForLanding());
 
-        // FR 08: Mixed Mode should allow takeoff
+        //Mixed Mode should allow takeoff
         runway.setMode(RunwayOpMode.MIXED_MODE);
         assertTrue(runway.isAvailableForTakeoff());
     }
