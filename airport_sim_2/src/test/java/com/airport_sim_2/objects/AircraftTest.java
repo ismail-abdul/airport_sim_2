@@ -32,9 +32,9 @@ public class AppTest
         assertEquals("BA", aircraft.getOperator());
         assertEquals("JFK", aircraft.getOrigin());
         assertEquals("LHR", aircraft.getDestination());
-        assertEquals(400, aircraft.getGroundSpeed());
-        assertEquals(1000, aircraft.getAltitude());
-        assertEquals(200, aircraft.getFuel());
+        assertEquals(400.0f, aircraft.getGroundSpeed());
+        assertEquals(1000.0f, aircraft.getAltitude());
+        assertEquals(200.0f, aircraft.getFuel());
         assertEquals(AircraftStatus.NORMAL, aircraft.getStatus());
         assertEquals(current_time, aircraft.getScheduledTime());
         
