@@ -20,6 +20,7 @@ public abstract class AbstractAircraftEvent implements Event {
         this.aircraft = aircraft;
     }
 
+    @Override
     public LocalDateTime getTime() {
         return time;
     }

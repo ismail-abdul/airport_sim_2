@@ -2,11 +2,12 @@ package com.airport_sim_2.model;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import com.airport_sim_2.controller.StatisticsCollector;
+import com.airport_sim_2.events.Event;
+import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
 import com.airport_sim_2.queues.HoldingPattern;
 import com.airport_sim_2.queues.TakeOffQueue;
-import com.airport_sim_2.controller.StatisticsCollector;
-import com.airport_sim_2.events.Event;
 
 
 public class SimulationContext {
@@ -59,5 +60,13 @@ public class SimulationContext {
 
     public boolean isLandingRunwayAvailable() {
         return runways.stream().anyMatch(Runway::isAvailableForLanding);
+    }
+
+    public void markAircraftDiverted(Aircraft aircraft) {
+        System.out.println("Aircraft diverted");
+    }
+
+    public void tryScheduleLanding(int runwayId) {
+        
     }
 }
