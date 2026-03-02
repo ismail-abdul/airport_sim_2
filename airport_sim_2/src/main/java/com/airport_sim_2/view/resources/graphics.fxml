@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <ToolBar id="topBar" prefHeight="40.0" prefWidth="200.0">
+        <items>
+            <ButtonBar id="leftButtons" prefHeight="40.0" prefWidth="45.0">
+              <buttons>
+                <Button id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" text="Start New Simulation" textAlignment="CENTER" />
+                  <Button id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" text="Get Simulation Data" textAlignment="CENTER" />
+              </buttons>
+            </ButtonBar>
+            <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Button id="stop" mnemonicParsing="false" text="⏹" />
+                  <Button id="pause" mnemonicParsing="false" text="⏸" />
+                  <Button id="play" mnemonicParsing="false" text="▶" />
+                  <Button id="fastForward" mnemonicParsing="false" text="⏭" />
+              </buttons>
+            </ButtonBar>
+            <Text id="date" strokeType="OUTSIDE" strokeWidth="0.0" text="Date/Time" />
+        </items>
+      </ToolBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <SplitPane id="leftPanel" dividerPositions="0.4942363112391931" orientation="VERTICAL" prefHeight="349.0" prefWidth="201.0">
+              <items>
+                <AnchorPane id="topLeftPanel" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <SplitPane id="topLeftPanelSplit" dividerPositions="0.5" prefHeight="349.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane id="topLeftLeft" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="96.0">
+                                 <children>
+                                    <TableView id="topLeftLeftTable" prefHeight="168.0" prefWidth="96.0">
+                                      <columns>
+                                        <TableColumn minWidth="9.0" prefWidth="95.0" text="All Planes" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane id="topLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" />
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane id="bottomLeftPanel" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <SplitPane id="bottomLeftPanelSplit" dividerPositions="0.5" prefHeight="349.0" prefWidth="200.0">
+                           <items>
+                              <AnchorPane id="bottomLeftLeft" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="96.0">
+                                 <children>
+                                    <TableView id="bottomLeftLeftTable" prefHeight="168.0" prefWidth="96.0">
+                                       <columns>
+                                          <TableColumn minWidth="9.0" prefWidth="95.0" text="All Runways" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane id="bottomLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" />
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <SplitPane fx:id="middleAndRight" dividerPositions="0.6304347826086957" layoutX="201.0" prefHeight="349.0" prefWidth="439.0">
+              <items>
+                <StackPane fx:id="middlePanel" minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="89.0">
+                      <AnchorPane fx:id="middleContent" minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="89.0">
+                        <children>
+                        </children>
+                      </AnchorPane>
+                      <Button fx:id="collapseButton" StackPane.alignment="CENTER_RIGHT" onAction="#collapseButtonPressed" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="244.0" layoutY="161.0" mnemonicParsing="false" text="▶" textAlignment="CENTER" />
+                    </StackPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="343.0">
+                     <children>
+                        <SplitPane id="rightPanel" dividerPositions="0.4942363112391931" orientation="VERTICAL" prefHeight="349.0" prefWidth="160.0">
+                          <items>
+                            <AnchorPane id="rightTopPanel" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView id="rightTopTable" layoutX="-1.0" prefHeight="172.0" prefWidth="160.0">
+                                      <columns>
+                                        <TableColumn prefWidth="37.0" text="Queue No." />
+                                        <TableColumn prefWidth="36.0" text="Flight No." />
+                                          <TableColumn minWidth="0.0" prefWidth="38.0" text="Target Time" />
+                                          <TableColumn prefWidth="47.0" text="Expected Time" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane id="rightBottomPanel" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView id="rightBottomTable" layoutX="-1.0" prefHeight="172.0" prefWidth="160.0">
+                                       <columns>
+                                          <TableColumn prefWidth="37.0" text="Queue No." />
+                                          <TableColumn prefWidth="36.0" text="Flight No." />
+                                          <TableColumn minWidth="0.0" prefWidth="38.0" text="Target Time" />
+                                          <TableColumn prefWidth="47.0" text="Expected Time" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
