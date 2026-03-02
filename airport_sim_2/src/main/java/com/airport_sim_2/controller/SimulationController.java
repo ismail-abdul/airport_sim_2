@@ -33,7 +33,7 @@ public class SimulationController {
         runways.add(new Runway(2, RunwayOpMode.LANDING, RunwayOperationalStatus.AVAILABLE));
 
         // Create queues
-        HoldingPattern holdingPattern = new HoldingPattern(runways.size());
+        HoldingPattern holdingPattern = new HoldingPattern();
         TakeOffQueue takeOffQueue = new TakeOffQueue();
 
         // Create statistics
