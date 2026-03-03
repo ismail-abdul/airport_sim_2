@@ -14,13 +14,14 @@ public class EnterHP extends AbstractEvent {
 
     @Override
     public void process(SimulationContext context) {
-        // Add aircraft to holding pattern
+        // add aircraft to holding pattern
         context.getHoldingPattern().enqueue(aircraft);
-        // Update statistics
+        // update statistics
         context.getStatistics().updateMaxHoldingSize(context.getHoldingPattern().size());
-        // If runway available, schedule landing immediately
-        if (context.isLandingRunwayAvailable()) {
-            context.scheduleEvent(new Landing(aircraft, eventTime));
+        // if runway available, schedule landing immediately
+        int runwayID = context.findAvailableLandingRunway();
+        if (runwayID != -1) {
+            context.scheduleEvent(new LeaveHP(eventTime, aircraft));
         }
     }
 }

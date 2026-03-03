@@ -1,4 +1,5 @@
 package com.airport_sim_2.events;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
@@ -19,10 +20,15 @@ public class LeaveHP extends AbstractEvent {
 
         context.getHoldingPattern().remove(aircraft);
         int runwayId = context.findAvailableLandingRunway();
+        if (runwayId == -1) {
+            return;
+        }
+        context.getHoldingPattern().remove(aircraft);
         context.getRunway(runwayId).occupy(aircraft);
+        long waitMinutes = Duration.between(aircraft.getScheduledTime(), eventTime).toMinutes();
+        context.getStatistics().recordArrivalWait(waitMinutes);
     
-        long nanosToAdd = (long) (context.getLandingDuration() * 60 * 1_000_000_000);
-        LocalDateTime result = eventTime.plusNanos(nanosToAdd);
-        context.scheduleEvent(new RunwayFreeEvent(result, runwayId));
+        LocalDateTime releaseTime = eventTime.plusMinutes(context.getLandingDuration());
+        context.scheduleEvent(new RunwayFreeEvent(releaseTime, runwayId));
     }
 }

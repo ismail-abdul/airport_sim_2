@@ -1,4 +1,5 @@
 package com.airport_sim_2.events;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
@@ -13,39 +14,38 @@ Runway reference
 timestamp etc
 */
 
-public class Landing extends AbstractAircraftEvent   {
-    private Runway runway;
+public class Landing extends AbstractEvent   {
+    private final Aircraft aircraft;
+    private final int runwayID;
     
-    public Landing(Aircraft aircraft , Runway runway, LocalDateTime ts) {
-        super(aircraft, ts);
-        this.runway = runway;
-    }
-
-    public Landing(Aircraft aircraft, LocalDateTime ts) {
-        super(aircraft, ts);
-        this.runway = null;
-    }
-
-    // get the runway associated with this landing 
-    public Runway getRunway() {
-        return runway;
-    }
-    public void setRunway(Runway runway) {
-        this.runway = runway;
+    public Landing(LocalDateTime eventTime, Aircraft aircraft, int runwayID) {
+        super(eventTime);
+        this.aircraft = aircraft;
+        this.runwayID = runwayID;
     }
 
     @Override
-    public void process(SimulationContext ctx) {
+    public void process(SimulationContext context) {
+        // check for a stale event as the aircraft may have already been diverted
+        if (!context.getHoldingPattern().contains(aircraft)) {
+            return;
+        }
 
-    }
+        Runway runway = context.getRunway(runwayID);
+        // safety check
+        if (!runway.isAvailableForLanding()) {
+            return;
+        }
 
-    @Override
-    public int compareTo(Event other) {
-        return this.getTime().compareTo(other.getTime());
-    }
-
-    @Override
-    public LocalDateTime getTime(){
-        return super.getTime();
+        // remove from holding
+        context.getHoldingPattern().remove(aircraft);
+        // occupy runway
+        runway.occupy(aircraft);
+        // record arrival wait time
+        long waitMinutes = Duration.between(aircraft.getScheduledTime(), eventTime).toMinutes();
+        context.getStatistics().recordArrivalWait(waitMinutes);
+        // schedule runway release
+        LocalDateTime releaseTime = eventTime.plusMinutes(context.getLandingDuration());
+        context.scheduleEvent(new RunwayFreeEvent(releaseTime, runwayID));
     }
 }

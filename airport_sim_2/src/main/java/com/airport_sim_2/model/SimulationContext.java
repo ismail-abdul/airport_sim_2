@@ -18,7 +18,7 @@ public class SimulationContext {
     private StatisticsCollector statistics;
     private PriorityQueue<Event> futureEventList;
     // minutes
-    private final double landingDuration = 20.0; 
+    private final long landingDuration = 20; 
     private final long takeOffDuration = 15;
 
     public PriorityQueue<Event> getFutureEventList() {
@@ -70,7 +70,7 @@ public class SimulationContext {
         return -1;
     }
 
-    public double getLandingDuration() {
+    public long getLandingDuration() {
         return landingDuration;
     }
 
