@@ -17,6 +17,9 @@ public class SimulationContext {
     private List<Runway> runways;
     private StatisticsCollector statistics;
     private PriorityQueue<Event> futureEventList;
+    // minutes
+    private final double landingDuration = 20.0; 
+    private final long takeOffDuration = 15;
 
     public PriorityQueue<Event> getFutureEventList() {
         return futureEventList;
@@ -56,6 +59,23 @@ public class SimulationContext {
 
     public Runway getRunway(int runwayId) {
         return runways.stream().filter(r -> r.getId() == runwayId).findFirst().orElse(null);
+    }
+
+    public int findAvailableLandingRunway() {
+        for (Runway runway : runways) {
+            if (runway.isAvailableForLanding()) {
+                return runway.getId();
+            }
+        }
+        return -1;
+    }
+
+    public double getLandingDuration() {
+        return landingDuration;
+    }
+
+    public long getTakeOffDuration() {
+        return takeOffDuration;
     }
 
     public StatisticsCollector getStatistics() {

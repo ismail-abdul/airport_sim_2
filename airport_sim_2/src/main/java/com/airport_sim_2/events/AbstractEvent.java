@@ -6,7 +6,7 @@ import com.airport_sim_2.model.SimulationContext;
 public abstract class AbstractEvent implements Event {
 
     protected final LocalDateTime eventTime;
-
+    
     protected AbstractEvent(LocalDateTime eventTime) {
         this.eventTime = eventTime;
     }
