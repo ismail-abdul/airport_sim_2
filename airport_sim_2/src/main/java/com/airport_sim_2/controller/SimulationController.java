@@ -1,12 +1,12 @@
 package com.airport_sim_2.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.airport_sim_2.events.EnterHP;
 import com.airport_sim_2.events.Event;
 import com.airport_sim_2.model.SimulationContext;
-import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
 import com.airport_sim_2.objects.Runway;
@@ -14,7 +14,6 @@ import com.airport_sim_2.objects.RunwayOpMode;
 import com.airport_sim_2.objects.RunwayOperationalStatus;
 import com.airport_sim_2.queues.HoldingPattern;
 import com.airport_sim_2.queues.TakeOffQueue;
-import com.airport_sim_2.simulation.StatisticsCollector;
 
 public class SimulationController {
 
@@ -53,8 +52,10 @@ public class SimulationController {
         Aircraft a2 = new Aircraft("AF456", "Air France", "Berlin", "London", 430, 9500, 30, AircraftStatus.NORMAL, null);
 
         // Schedule entry into holding pattern
-        context.scheduleEvent(new EnterHP(0.0, a1));
-        context.scheduleEvent(new EnterHP(5.0, a2));
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime later = now.plusMinutes(2);
+        context.scheduleEvent(new EnterHP(now, a1));
+        context.scheduleEvent(new EnterHP(later, a2));
 
         // run simulation
         while (context.hasMoreEvents()) {
