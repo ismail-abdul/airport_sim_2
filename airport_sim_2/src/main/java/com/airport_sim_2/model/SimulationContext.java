@@ -20,6 +20,8 @@ public class SimulationContext {
     // minutes
     private final long landingDuration = 20; 
     private final long takeOffDuration = 15;
+    //fuel used per minute
+    private final long fuel_consumption_rate = 20;
 
     public PriorityQueue<Event> getFutureEventList() {
         return futureEventList;
@@ -76,6 +78,10 @@ public class SimulationContext {
 
     public long getTakeOffDuration() {
         return takeOffDuration;
+    }
+
+    public long getFuelConsumptionRate(){
+        return fuel_consumption_rate;
     }
 
     public StatisticsCollector getStatistics() {

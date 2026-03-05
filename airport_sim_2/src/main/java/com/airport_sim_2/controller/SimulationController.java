@@ -63,7 +63,34 @@ public class SimulationController {
             // advance time
             //context.setCurrentTime(event.getEventTime());
             event.process(context);
+
+            checkQueues(); // check queue for diversions and cancellations
         }
+    }
+
+    public void checkQueues(){
+        int diverted = context.getHoldingPattern().checkDiversions(context.getRunways().size(), context.getLandingDuration(), context.getFuelConsumptionRate());
+        // Gets all planes
+        // for (Aircraft aircraft : diverted){
+        //     context.getStatistics().recordDiversion();
+        // }
+
+        context.getStatistics().addDiverted(diverted);
+
+        // do same for takeoff when get cancellations are a function
+
+    }
+
+    public String[] getHoldingPatternCallsigns() {
+        return context.getHoldingPattern().getCallsign();
+    }
+
+    public String[] getTakeOffQueueCallsigns() {
+        return context.getTakeOffQueue().getCallsign();
+    }
+
+    public List<Runway> getRunways() {
+        return context.getRunways();
     }
 
     public StatisticsCollector getStatistics() {

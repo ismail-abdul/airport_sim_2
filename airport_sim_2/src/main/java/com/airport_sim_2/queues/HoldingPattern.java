@@ -8,8 +8,6 @@ import com.airport_sim_2.objects.Aircraft;
 public class HoldingPattern implements AircraftQueue {
 
     private final PriorityQueue<Aircraft> queue;
-    double fuel_consumption_rate = 4.0; // fuel (litres) per minutes used
-    double landing_times = 20; // minutes needed for a runway to be available after an aircraft lands on it
 
     public HoldingPattern() {
         queue = new PriorityQueue<>(new AircraftLandingComparator());
@@ -44,7 +42,7 @@ public class HoldingPattern implements AircraftQueue {
     }
 
     // Checks for all planes that need to be diverted from the holding pattern
-    public List<Aircraft> checkDiversions(double currentTime, int runways) {
+    public int checkDiversions(int runways, long landing_times, long fuel_consumption_rate) {
         // Initialise list of diverted planes and copy the queue
         List<Aircraft> diverted = new ArrayList<>();
         PriorityQueue<Aircraft> copy = new PriorityQueue<>(queue);
@@ -70,19 +68,22 @@ public class HoldingPattern implements AircraftQueue {
 
         //remove all diverted planes from the holding pattern and return the list of diverted planes
         queue.removeAll(diverted);
-        return diverted;
+        //return diverted;
+        return diverted.size();
     }
+    
     // Gets all the aircrafts callsign in the queue and returns it
-    protected String[] getCallsign(){
+    @Override
+    public String[] getCallsign(){
         // Create a copy of the queue
         PriorityQueue<Aircraft> copy = new PriorityQueue<>(queue);
 
-        int i = 0;
+        int index = 0;
         String[] callsigns = new String[queue.size()];
 
         // Loop through the copy and get all the aircrafts callsigns
         while(!copy.isEmpty()){
-            callsigns[i++] = copy.poll().getCallsign();
+            callsigns[index++] = copy.poll().getCallsign();
         }
         
         return callsigns;

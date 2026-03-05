@@ -6,4 +6,5 @@ public interface AircraftQueue {
     Aircraft dequeue();
     int size();
     boolean isEmpty();
+    String[] getCallsign();
 }
