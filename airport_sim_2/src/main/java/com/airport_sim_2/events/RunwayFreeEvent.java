@@ -9,14 +9,16 @@ public class RunwayFreeEvent extends RunwayEvent {
     }
     @Override
     public void process(SimulationContext context) {
-
-        // context.getRunway(runwayId).setOccupied(false);
-        // // try to schedule next takeoff
-        // if (!context.getTakeOffQueue().isEmpty()) {
-        //     context.scheduleEvent(new TakeOffEvent(eventTime, runwayId));
-        // }
-        // // try to schedule landing
-        // context.tryScheduleLanding(runwayId);
+        context.getRunway(runwayId);
+        // try landing first as it is priority to arrivals
+        if (!context.getHoldingPattern().isEmpty()) {
+            context.scheduleEvent(new TakeOffEvent(eventTime, runwayId));
+            return;
+        }
+        // try takeoff
+        if (!context.getTakeOffQueue().isEmpty()) {
+            context.scheduleEvent(new TakeOffEvent(eventTime, runwayId));
+        }
     }
     
 }

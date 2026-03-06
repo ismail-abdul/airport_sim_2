@@ -16,7 +16,5 @@ public abstract class RunwayEvent extends AbstractEvent {
     }
 
     @Override
-    public void process(SimulationContext context) {
-        
-    }
+    public abstract void process(SimulationContext context);
 }
