@@ -1,5 +1,4 @@
 package com.airport_sim_2.events;
-import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
@@ -7,7 +6,8 @@ import com.airport_sim_2.objects.Aircraft;
 public class EnterHP extends AbstractEvent {
 
     private final Aircraft aircraft;
-    public EnterHP(LocalDateTime eventTime, Aircraft aircraft) {
+    
+    public EnterHP(Double eventTime, Aircraft aircraft) {
         super(eventTime);
         this.aircraft = aircraft;
     }

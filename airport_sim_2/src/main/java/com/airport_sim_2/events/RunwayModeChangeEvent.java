@@ -1,12 +1,11 @@
 package com.airport_sim_2.events;
-import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.RunwayOpMode;
 
 public class RunwayModeChangeEvent extends RunwayEvent {
     private final RunwayOpMode newMode;
-    public RunwayModeChangeEvent(LocalDateTime eventTime, int runwayId, RunwayOpMode newMode) {
+    public RunwayModeChangeEvent(Double eventTime, int runwayId, RunwayOpMode newMode) {
         super(eventTime, runwayId); 
         this.newMode = newMode;
     }

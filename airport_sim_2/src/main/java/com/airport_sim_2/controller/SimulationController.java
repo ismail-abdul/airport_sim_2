@@ -3,10 +3,12 @@ package com.airport_sim_2.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.airport_sim_2.events.EnterHP;
 import com.airport_sim_2.events.Event;
 import com.airport_sim_2.model.SimulationContext;
+import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
 import com.airport_sim_2.objects.Runway;
@@ -15,15 +17,30 @@ import com.airport_sim_2.objects.RunwayOperationalStatus;
 import com.airport_sim_2.queues.HoldingPattern;
 import com.airport_sim_2.queues.TakeOffQueue;
 
+
+/**
+ * SimulationController is responsible for managing the consumption and creation of events in the simulation.
+ * This requires access to SimulationContext
+*/
 public class SimulationController {
 
     private SimulationContext context;
-    // private SimulationEngine engine;
+    private SimulationEngine engine;
+    private Random random;
+    private double currentTime;
+    private double endTime;
 
-    public SimulationController() {
+    public SimulationController(double endtime) {
         initialiseSimulation();
+        this.endTime = endtime;
+        random = new Random();
     }
 
+    // Generate an event according to the necessary distribution.
+    // Should we be generating a set of events or just one type?
+    // Doesn't it make more sense to just generate a new event when the current one is processed. 
+    // Emergencies can be generated whatever way we want. Just make it automatic.
+    
     private void initialiseSimulation() {
 
         // Create runways
@@ -42,12 +59,12 @@ public class SimulationController {
         context = new SimulationContext(holdingPattern, takeOffQueue, runways, statistics);
 
         // Create engine
-        //engine = new SimulationEngine(context);
+        engine = new SimulationEngine(this.endTime);
     }
 
     public void startSimulation() {
 
-        // schedule some aircraft arrivals
+        // schedule some aircraft arrivals. generate two airplanes intended to enter holding pattern some time after the beginnnig m
         Aircraft a1 = new Aircraft("BA123", "British Airways", "Paris", "London", 450, 10000, 60, AircraftStatus.NORMAL, null);
         Aircraft a2 = new Aircraft("AF456", "Air France", "Berlin", "London", 430, 9500, 30, AircraftStatus.NORMAL, null);
 
@@ -57,15 +74,16 @@ public class SimulationController {
         context.scheduleEvent(new EnterHP(now, a1));
         context.scheduleEvent(new EnterHP(later, a2));
 
-        // run simulation
+        // run simulation engine.
         while (context.hasMoreEvents()) {
             Event event = context.getNextEvent();
-            // advance time
-            //context.setCurrentTime(event.getEventTime());
+            // advance time. what if we need to delay an event's processing.
+            context.setCurrentTime(event.getTime());
             event.process(context);
 
             checkQueues(); // check queue for diversions and cancellations
         }
+        
     }
 
     public void checkQueues(){

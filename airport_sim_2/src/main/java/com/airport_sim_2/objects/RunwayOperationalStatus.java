@@ -1,5 +1,8 @@
 package com.airport_sim_2.objects;
 
+/**
+ * Describes the operational status of a runway i.e. is it running or not. 
+*/
 public enum RunwayOperationalStatus {
 
     AVAILABLE("Available"),

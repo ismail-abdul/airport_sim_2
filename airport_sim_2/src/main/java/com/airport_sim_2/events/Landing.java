@@ -1,6 +1,4 @@
 package com.airport_sim_2.events;
-import java.time.Duration;
-import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
@@ -18,7 +16,7 @@ public class Landing extends AbstractEvent   {
     private final Aircraft aircraft;
     private final int runwayID;
     
-    public Landing(LocalDateTime eventTime, Aircraft aircraft, int runwayID) {
+    public Landing(Double eventTime, Aircraft aircraft, int runwayID) {
         super(eventTime);
         this.aircraft = aircraft;
         this.runwayID = runwayID;
@@ -42,10 +40,10 @@ public class Landing extends AbstractEvent   {
         // occupy runway
         runway.occupy(aircraft);
         // record arrival wait time
-        long waitMinutes = Duration.between(aircraft.getScheduledTime(), eventTime).toMinutes();
+        Double waitMinutes = (eventTime - aircraft.getScheduledTime()) / 60;
         context.getStatistics().recordArrivalWait(waitMinutes);
         // schedule runway release
-        LocalDateTime releaseTime = eventTime.plusMinutes(context.getLandingDuration());
+        Double releaseTime = (double) eventTime + context.getLandingDuration();
         context.scheduleEvent(new RunwayFreeEvent(releaseTime, runwayID));
     }
 }

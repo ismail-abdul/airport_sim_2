@@ -1,12 +1,12 @@
 package com.airport_sim_2.events;
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
-
+/**
+ * This event describes an aircraft taking off from a specific runway.
+ * Which aircraft is irrelevant. We are simply taking the highest priority departure and executing.
+ */
 public class TakeOffEvent extends RunwayEvent {
-    public TakeOffEvent(LocalDateTime eventTime, int runwayId) {
+    public TakeOffEvent(Double eventTime, int runwayId) {
         super(eventTime, runwayId);
     }
 
@@ -19,9 +19,9 @@ public class TakeOffEvent extends RunwayEvent {
         Aircraft aircraft = context.getTakeOffQueue().dequeue();
         context.getRunway(runwayId).occupy(aircraft);
 
-        long waitMinutes = Duration.between(aircraft.getScheduledTime(), eventTime).toMinutes();
-        context.getStatistics().recordDepartureWait(waitMinutes);
-        LocalDateTime releaseTime = eventTime.plusMinutes(context.getTakeOffDuration());
+        double waitSeconds = eventTime - aircraft.getScheduledTime();
+        context.getStatistics().recordDepartureWait(waitSeconds);
+        Double releaseTime = eventTime + context.getTakeOffDuration();
 
         context.scheduleEvent(new RunwayFreeEvent(releaseTime, runwayId));
     }
