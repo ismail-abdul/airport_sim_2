@@ -12,20 +12,20 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-      <ToolBar id="topBar" prefHeight="40.0" prefWidth="200.0">
+      <ToolBar id="topBar" prefHeight="40.0" prefWidth="200.0" stylesheets="@style.css">
         <items>
             <ButtonBar id="leftButtons" prefHeight="40.0" prefWidth="45.0">
               <buttons>
-                <Button styleClass="leftButtons" id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" text="Start New Simulation" textAlignment="CENTER" />
-                  <Button styleClass="leftButtons" id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" text="Get Simulation Data" textAlignment="CENTER" />
+                <Button id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" styleClass="leftButtons" stylesheets="@style.css" text="Start New Simulation" textAlignment="CENTER" />
+                  <Button id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" styleClass="leftButtons" stylesheets="@style.css" text="Get Simulation Data" textAlignment="CENTER" />
               </buttons>
             </ButtonBar>
-            <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0" stylesheets="@style.css">
               <buttons>
-                  <Button styleClass="toolBarButtons" id="stop" mnemonicParsing="false" text="⏹" />
-                  <Button styleClass="toolBarButtons" id="pause" mnemonicParsing="false" text="⏸" />
-                  <Button styleClass="toolBarButtons" id="play" mnemonicParsing="false" text="▶" />
-                  <Button styleClass="toolBarButtons" id="fastForward" mnemonicParsing="false" text="⏭" />
+                  <Button id="stop" mnemonicParsing="false" styleClass="toolBarButtons" text="⏹" />
+                  <Button id="pause" mnemonicParsing="false" styleClass="toolBarButtons" text="⏸" />
+                  <Button id="play" mnemonicParsing="false" styleClass="toolBarButtons" text="▶" />
+                  <Button id="fastForward" mnemonicParsing="false" styleClass="toolBarButtons" text="⏭" />
               </buttons>
             </ButtonBar>
             <Text id="date" strokeType="OUTSIDE" strokeWidth="0.0" text="Date/Time" />
