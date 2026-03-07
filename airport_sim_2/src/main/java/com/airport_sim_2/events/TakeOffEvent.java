@@ -1,31 +1,28 @@
 package com.airport_sim_2.events;
-import java.time.LocalDateTime;
-
 import com.airport_sim_2.model.SimulationContext;
-
+import com.airport_sim_2.objects.Aircraft;
+/**
+ * This event describes an aircraft taking off from a specific runway.
+ * Which aircraft is irrelevant. We are simply taking the highest priority departure and executing.
+ */
 public class TakeOffEvent extends RunwayEvent {
-    public TakeOffEvent(LocalDateTime eventTime, int runwayId) {
+    public TakeOffEvent(Double eventTime, int runwayId) {
         super(eventTime, runwayId);
     }
+
     @Override
     public void process(SimulationContext context) {
-        // // if no aircraft waiting, do nothing
-        // if (context.getTakeOffQueue().isEmpty()) {
-        //     return;
-        // }
-        // // if runway unavailable, do nothing
-        // if (!context.isRunwayAvailable(runwayId)) {
-        //     return;
-        // }
-        // // get aircraft from queue (FIFO)
-        // Aircraft aircraft = context.getTakeOffQueue().dequeue();
-        // // mark runway as occupied
-        // context.getRunway(runwayId).setOccupied(true);
-        // // record wait time
-        // double waitTime = eventTime - aircraft.getScheduledTime();
-        // context.getStatistics().recordDepartureWait(waitTime);
-        // // schedule runway release after fixed takeoff duration
-        // double runwayReleaseTime = eventTime + context.getTakeOffDuration();
-        // context.scheduleEvent(new RunwayFreeEvent(runwayReleaseTime, runwayId));
+        if (context.getTakeOffQueue().isEmpty()) {
+            return;
+        }
+
+        Aircraft aircraft = context.getTakeOffQueue().dequeue();
+        context.getRunway(runwayId).occupy(aircraft);
+
+        double waitSeconds = eventTime - aircraft.getScheduledTime();
+        context.getStatistics().recordDepartureWait(waitSeconds);
+        Double releaseTime = eventTime + context.getTakeOffDuration();
+
+        context.scheduleEvent(new RunwayFreeEvent(releaseTime, runwayId));
     }
 }

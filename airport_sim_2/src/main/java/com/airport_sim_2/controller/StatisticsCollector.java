@@ -47,6 +47,10 @@ public class StatisticsCollector {
         divertedCount++;
     }
 
+    public void addDiverted(int number_of_diverted) {
+        divertedCount += number_of_diverted;
+    }
+
     public double getAverageArrivalWait() {
         return arrivalWaitTimes.stream().mapToDouble(Double::doubleValue).average().orElse(0);
     }

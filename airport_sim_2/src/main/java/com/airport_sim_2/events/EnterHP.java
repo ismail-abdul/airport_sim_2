@@ -1,5 +1,4 @@
 package com.airport_sim_2.events;
-import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
@@ -7,20 +6,22 @@ import com.airport_sim_2.objects.Aircraft;
 public class EnterHP extends AbstractEvent {
 
     private final Aircraft aircraft;
-    public EnterHP(LocalDateTime eventTime, Aircraft aircraft) {
+    
+    public EnterHP(Double eventTime, Aircraft aircraft) {
         super(eventTime);
         this.aircraft = aircraft;
     }
 
     @Override
     public void process(SimulationContext context) {
-        // Add aircraft to holding pattern
+        // add aircraft to holding pattern
         context.getHoldingPattern().enqueue(aircraft);
-        // Update statistics
+        // update statistics
         context.getStatistics().updateMaxHoldingSize(context.getHoldingPattern().size());
-        // If runway available, schedule landing immediately
-        if (context.isLandingRunwayAvailable()) {
-            context.scheduleEvent(new Landing(aircraft, eventTime));
+        // if runway available, schedule landing immediately
+        int runwayID = context.findAvailableLandingRunway();
+        if (runwayID != -1) {
+            context.scheduleEvent(new LeaveHP(eventTime, aircraft));
         }
     }
 }

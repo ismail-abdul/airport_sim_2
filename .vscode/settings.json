@@ -1,3 +1,16 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+
+    // settings.json adjustments to reduce CPU load
+    "files.watcherExclude": {
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/venv/**": true
+    },
+    "search.exclude": {
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true
+    },
 }
