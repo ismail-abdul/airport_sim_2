@@ -92,11 +92,16 @@ public class SimulationController {
         // for (Aircraft aircraft : diverted){
         //     context.getStatistics().recordDiversion();
         // }
+        if (diverted > 0){
+            context.getStatistics().addDiverted(diverted);
+        }
 
-        context.getStatistics().addDiverted(diverted);
 
-        // do same for takeoff when get cancellations are a function
+        int cancelled = context.getTakeOffQueue().checkCancelled(context.getRunways().size(), context.getTakeOffDuration(), context.getMaxWaitTime());
 
+        if (cancelled > 0){
+            context.getStatistics().addDiverted(cancelled);
+        }
     }
 
     public String[] getHoldingPatternCallsigns() {
