@@ -1,5 +1,4 @@
 package com.airport_sim_2.objects;
-import java.time.LocalDateTime;
 
 public class Aircraft {
     private static long sequenceCounter = 0;
@@ -11,13 +10,12 @@ public class Aircraft {
     private final String destination;
     private final float groundSpeed;
     private final float altitude;
-    // minutes of fuel remaining
-    private float fuel;                  
+    private float fuel; // minutes of fuel remaining        
     private AircraftStatus status;
-    private final LocalDateTime scheduledTime;
-    private LocalDateTime actualTime;
+    private final Double scheduled_ts; // schedule timestamp for processing in seconds / ticks
+    private Double process_ts; // actual timestamp for when the aircraft is processed
     
-    public Aircraft(String callsign, String operator, String origin, String destination, float groundSpeed, float altitude, float fuel, AircraftStatus status, LocalDateTime scheduledTime) {
+    public Aircraft(String callsign, String operator, String origin, String destination, float groundSpeed, float altitude, float fuel, AircraftStatus status, Double scheduled_processing_timestamp) {
         this.sequenceNumber = sequenceCounter++;
         this.callsign = callsign;
         this.operator = operator;
@@ -27,8 +25,11 @@ public class Aircraft {
         this.altitude = altitude;
         this.fuel = fuel;
         this.status = status;
-        this.scheduledTime = scheduledTime;
+        this.scheduled_ts = scheduled_processing_timestamp;
     }
+
+    public Double getScheduledProcessingTimestamp() { return this.scheduled_ts; }
+
 
     public long getSequenceNumber() {
         return this.sequenceNumber;
@@ -66,12 +67,12 @@ public class Aircraft {
         return this.status;
     }
 
-    public LocalDateTime getScheduledTime() {
-        return this.scheduledTime;
+    public Double getScheduledTime() {
+        return this.scheduled_ts;
     }
 
-    public LocalDateTime getActualTime() {
-        return this.actualTime;
+    public Double getActualTime() {
+        return this.process_ts;
     }
 
     public void reduceFuel(float amount) {
@@ -86,15 +87,18 @@ public class Aircraft {
         }
     }
 
-    public void setActualTime(LocalDateTime actualTime) {
-        this.actualTime = actualTime;
+    public void setActualTime(Double process_ts) {
+        this.process_ts = process_ts;
     }
 
-    public long getDelayMinutes() {
-        if (actualTime == null) {
-            return 0;
+    /**
+     * Return the amount of delay from the original event processing time.
+     */
+    public Double getDelayTicks() {
+        if (process_ts == null) {
+            return 0.0d;
         }
-        return java.time.Duration.between(scheduledTime, actualTime).toMinutes();
+        return process_ts - scheduled_ts;
     }
 
     @Override

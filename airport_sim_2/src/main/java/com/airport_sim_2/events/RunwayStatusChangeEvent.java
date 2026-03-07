@@ -1,6 +1,5 @@
 package com.airport_sim_2.events;
 
-import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.RunwayOperationalStatus;
@@ -8,7 +7,7 @@ import com.airport_sim_2.objects.RunwayOperationalStatus;
 public class RunwayStatusChangeEvent extends RunwayEvent {
 
     private final RunwayOperationalStatus newStatus;
-    public RunwayStatusChangeEvent(LocalDateTime eventTime, int runwayId, RunwayOperationalStatus newStatus) {
+    public RunwayStatusChangeEvent(Double eventTime, int runwayId, RunwayOperationalStatus newStatus) {
         super(eventTime, runwayId);
         this.newStatus = newStatus;
     }

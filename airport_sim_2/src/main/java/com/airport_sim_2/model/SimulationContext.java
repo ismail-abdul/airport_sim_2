@@ -9,7 +9,13 @@ import com.airport_sim_2.objects.Runway;
 import com.airport_sim_2.queues.HoldingPattern;
 import com.airport_sim_2.queues.TakeOffQueue;
 
-
+/**
+ * SimulationContext is responsible for holding the state of the simulation and holding metadata.
+ * That includes an event queue, holding pattern, takeoff queue, runways. 
+ * 
+ * Instead, maybe it should contain all the configuartion information about the simulation.
+ * e.g. before starting the simulation, all this information should be collected.
+ */
 public class SimulationContext {
 
     private HoldingPattern holdingPattern;
