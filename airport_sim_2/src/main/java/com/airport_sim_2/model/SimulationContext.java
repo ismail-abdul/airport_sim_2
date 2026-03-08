@@ -66,7 +66,20 @@ public class SimulationContext {
     public List<Runway> getRunways() {
         return runways;
     }
-
+    
+    // get's any available runway or returns null
+    public Runway getAvailableRunway() {
+        for (int i = 0; i < runways.size(); i++) {
+            try {
+                Runway runway = runways.get(i);
+                return runway;
+            } catch (IndexOutOfBoundsException e) {
+                throw new IndexOutOfBoundsException("Index exceeds bounds of runway count");
+            }
+            
+        }
+    }
+    
     public Runway getRunway(int runwayId) {
         return runways.stream().filter(r -> r.getId() == runwayId).findFirst().orElse(null);
     }
