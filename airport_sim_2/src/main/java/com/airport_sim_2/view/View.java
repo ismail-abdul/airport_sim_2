@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import com.airport_sim_2.model.TimeManager;
 
 public class View extends Application{
     @Override
@@ -63,6 +64,43 @@ public class View extends Application{
 
         // flip state
         open = !open;
+    }
+
+    @FXML
+    private Button stop;
+
+    @FXML
+    private Button pause;
+
+    @FXML
+    private Button play;
+
+    @FXML
+    private Button fastForward;
+
+    private TimeManager timeManager = new TimeManager();
+
+    @FXML
+    public void stopPressed(ActionEvent event) {
+        timeManager.pause();
+        timeManager.setTimeScale(1.0);
+    }
+
+    @FXML
+    public void pausePressed(ActionEvent event) {
+        timeManager.pause();
+    }
+
+    @FXML
+    public void playPressed(ActionEvent event) {
+        timeManager.setTimeScale(1.0);
+        timeManager.resume();
+    }
+
+    @FXML
+    public void fastForwardPressed(ActionEvent event) {
+        timeManager.setTimeScale(2.0);
+        timeManager.resume();
     }
 
 }
