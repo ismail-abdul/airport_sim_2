@@ -1,18 +1,17 @@
 package com.airport_sim_2.events;
-import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
 
 public abstract class AbstractEvent implements Event {
 
-    protected final LocalDateTime eventTime;
+    protected Double eventTime;
     
-    protected AbstractEvent(LocalDateTime eventTime) {
+    protected AbstractEvent(double eventTime) {
         this.eventTime = eventTime;
     }
 
     @Override
-    public LocalDateTime getTime() {
+    public Double getTime() {
         return eventTime;
     }
 

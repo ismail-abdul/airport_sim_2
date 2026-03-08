@@ -9,7 +9,13 @@ import com.airport_sim_2.objects.Runway;
 import com.airport_sim_2.queues.HoldingPattern;
 import com.airport_sim_2.queues.TakeOffQueue;
 
-
+/**
+ * SimulationContext is responsible for holding the state of the simulation and holding metadata.
+ * That includes an event queue, holding pattern, takeoff queue, runways. 
+ * 
+ * Instead, maybe it should contain all the configuartion information about the simulation.
+ * e.g. before starting the simulation, all this information should be collected.
+ */
 public class SimulationContext {
 
     private HoldingPattern holdingPattern;
@@ -22,6 +28,8 @@ public class SimulationContext {
     private final long takeOffDuration = 15;
     //fuel used per minute
     private final long fuel_consumption_rate = 20;
+    // max wait time for departing aircraft
+    private final long max_wait_time = 30;
 
     public PriorityQueue<Event> getFutureEventList() {
         return futureEventList;
@@ -78,6 +86,10 @@ public class SimulationContext {
 
     public long getTakeOffDuration() {
         return takeOffDuration;
+    }
+
+    public long getMaxWaitTime() {
+        return max_wait_time;
     }
 
     public long getFuelConsumptionRate(){

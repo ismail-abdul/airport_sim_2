@@ -5,7 +5,7 @@ public class Runway {
     private final int id;
     private RunwayOpMode mode;
     private RunwayOperationalStatus status;
-    private Aircraft currentAircraft;
+    private Aircraft currentAircraft; // Reference to whatever aircraft is currently using it?
 
     public Runway(int id, RunwayOpMode mode, RunwayOperationalStatus status) {
         this.id = id;

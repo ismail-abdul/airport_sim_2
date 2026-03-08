@@ -1,10 +1,9 @@
 package com.airport_sim_2.events;
-import java.time.LocalDateTime;
 
 import com.airport_sim_2.model.SimulationContext;
 
 public class RunwayFreeEvent extends RunwayEvent {
-    public RunwayFreeEvent(LocalDateTime eventTime, int runwayId) {
+    public RunwayFreeEvent(Double eventTime, int runwayId) {
         super(eventTime, runwayId);
     }
     @Override
