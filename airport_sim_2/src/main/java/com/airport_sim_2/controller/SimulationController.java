@@ -119,4 +119,8 @@ public class SimulationController {
     public StatisticsCollector getStatistics() {
         return context.getStatistics();
     }
+
+    public double getCurrentTime() {
+        return context.getCurrentTime();
+    }
 }

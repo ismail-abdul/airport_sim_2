@@ -14,6 +14,7 @@ public class SimulationView {
         displayTakeOffQueue();
         displayHoldingPattern();
         displayRunways();
+        displayTime();
     }
 
     private void displayTakeOffQueue(){
@@ -34,6 +35,13 @@ public class SimulationView {
 
         // Gets all the runways in the simulation
         List<Runway> runways = controller.getRunways();
+    
+    }
+
+    private void displayTime(){
+
+        // Gets the current time, which is the latest event
+        double current_time = controller.getCurrentTime();
     
     }
 
