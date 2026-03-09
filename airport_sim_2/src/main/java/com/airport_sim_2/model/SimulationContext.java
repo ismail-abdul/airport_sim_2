@@ -30,6 +30,7 @@ public class SimulationContext {
     private final long fuel_consumption_rate = 20;
     // max wait time for departing aircraft
     private final long max_wait_time = 30;
+    private double current_time = 0;
 
     public PriorityQueue<Event> getFutureEventList() {
         return futureEventList;
@@ -67,6 +68,14 @@ public class SimulationContext {
         return runways;
     }
     
+    public double getCurrentTime() {
+        return current_time;
+    }
+
+    public void setCurrentTime(double newtime) {
+        current_time = newtime;
+    }
+
     // get's any available runway or returns null
     public Runway getAvailableRunway() {
         for (int i = 0; i < runways.size(); i++) {
@@ -76,8 +85,8 @@ public class SimulationContext {
             } catch (IndexOutOfBoundsException e) {
                 throw new IndexOutOfBoundsException("Index exceeds bounds of runway count");
             }
-            
         }
+        return null;
     }
     
     public Runway getRunway(int runwayId) {
