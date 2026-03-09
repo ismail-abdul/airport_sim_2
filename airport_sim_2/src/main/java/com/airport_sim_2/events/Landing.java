@@ -1,5 +1,6 @@
 package com.airport_sim_2.events;
 
+import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
@@ -20,6 +21,11 @@ public class Landing extends AbstractEvent   {
         super(eventTime);
         this.aircraft = aircraft;
         this.runwayID = runwayID;
+    }
+
+    @Override
+    public EventType getType() {
+        return EventType.LANDING;
     }
 
     @Override

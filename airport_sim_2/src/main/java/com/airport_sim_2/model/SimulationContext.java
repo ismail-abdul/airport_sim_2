@@ -1,9 +1,7 @@
 package com.airport_sim_2.model;
 import java.util.List;
-import java.util.PriorityQueue;
 
 import com.airport_sim_2.controller.StatisticsCollector;
-import com.airport_sim_2.events.Event;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
 import com.airport_sim_2.queues.HoldingPattern;
@@ -22,7 +20,6 @@ public class SimulationContext {
     private TakeOffQueue takeOffQueue;
     private List<Runway> runways;
     private StatisticsCollector statistics;
-    private PriorityQueue<Event> futureEventList;
     // minutes
     private final long landingDuration = 20; 
     private final long takeOffDuration = 15;
@@ -32,28 +29,11 @@ public class SimulationContext {
     private final long max_wait_time = 30;
     private double current_time = 0;
 
-    public PriorityQueue<Event> getFutureEventList() {
-        return futureEventList;
-    }
-
     public SimulationContext(HoldingPattern holdingPattern, TakeOffQueue takeOffQueue, List<Runway> runways, StatisticsCollector statistics) {
         this.holdingPattern = holdingPattern;
         this.takeOffQueue = takeOffQueue;
         this.runways = runways;
         this.statistics = statistics;
-        this.futureEventList = new PriorityQueue<>();
-    }
-
-    public void scheduleEvent(Event event) {
-        futureEventList.add(event);
-    }
-
-    public Event getNextEvent() {
-        return futureEventList.poll();
-    }
-
-    public boolean hasMoreEvents() {
-        return !futureEventList.isEmpty();
     }
 
     public HoldingPattern getHoldingPattern() {

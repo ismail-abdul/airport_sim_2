@@ -1,4 +1,5 @@
 package com.airport_sim_2.events;
+import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
 /**
@@ -6,8 +7,14 @@ import com.airport_sim_2.objects.Aircraft;
  * Which aircraft is irrelevant. We are simply taking the highest priority departure and executing.
  */
 public class TakeOffEvent extends RunwayEvent {
+    
     public TakeOffEvent(Double eventTime, int runwayId) {
         super(eventTime, runwayId);
+    }
+
+    @Override
+    public EventType getType() {
+        return EventType.TAKEOFF;
     }
 
     @Override

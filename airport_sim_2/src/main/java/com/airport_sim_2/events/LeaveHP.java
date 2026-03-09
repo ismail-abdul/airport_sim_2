@@ -1,10 +1,18 @@
 package com.airport_sim_2.events;
+import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
+import com.airport_sim_2.objects.Runway;
 
 // This events is dispatched to the UI
 public class LeaveHP extends AbstractEvent {
     private final Aircraft aircraft;
+
+    @Override
+    public EventType getType() {
+        return EventType.LEAVE_HP;
+    }
+    
     public LeaveHP(Double eventTime, Aircraft aircraft) {
         super(eventTime);
         this.aircraft = aircraft;
@@ -48,20 +56,26 @@ public class LeaveHP extends AbstractEvent {
             );
         }
     
+        /** 
         // Mark runway as occupied and assign aircraft
         runway.setOccupied(true);
         runway.setCurrentAircraft(this.getAircraft());
     
         // Schedule the landing completion event
-        LocalDateTime landingCompleteTime = getTime().plusMinutes(ctx.getLandingDurationMinutes());
+        double landingCompleteTime = getTime().plusMinutes(ctx.getLandingDurationMinutes());
         ctx.getEventQueue().add(new LandingCompleteEvent(aircraft, runway.getId(), landingCompleteTime));
     
         // Record actual arrival time for statistics (delay = actual - scheduled)
         aircraft.setActualArrivalTime(getTime());
+        */
     }
 
     @Override
     public int compareTo(Event event) {
         return this.getTime().compareTo(event.getTime());
+    }
+
+    public Aircraft getAircraft() {
+        return aircraft;
     }
 }
