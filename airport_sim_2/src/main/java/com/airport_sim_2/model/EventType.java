@@ -7,12 +7,14 @@ package com.airport_sim_2.model;
  * Simulation animations can be coordinated according to time before next event. yfm. 
  */
 public enum EventType {
-    TAKEOFF, 
-    LANDING, 
-
+    LANDING,
+    AC_TAKEOFF, 
+    
     AIRCRAFT_EM_STATUS_CHANGE, // might break down to specific changes
+
     RUNWAY_OP_MODE_CHANGE, // might break down to specific changes
     RUNWAY_OP_STATUS_CHANGE, // might break down to specifc changes
+    RUNWAY_TAKEOFF, 
 
     RUNWAY_FREE,
     

@@ -21,7 +21,7 @@ public class RunwayModeChangeEvent extends RunwayEvent {
     public void process(SimulationContext context) {
         context.getRunway(runwayId).setMode(newMode);
         if (newMode == RunwayOpMode.TAKE_OFF || newMode == RunwayOpMode.MIXED_MODE && !context.getTakeOffQueue().isEmpty()) {
-            context.scheduleEvent(new TakeOffEvent(eventTime, runwayId));
+            context.scheduleEvent(new RunwayTakeOff(eventTime, runwayId));
         }
         if (newMode == RunwayOpMode.LANDING || newMode == RunwayOpMode.MIXED_MODE) {
             context.tryScheduleLanding(runwayId);

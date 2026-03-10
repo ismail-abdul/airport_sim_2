@@ -56,7 +56,7 @@ public class SimulationContext {
         current_time = newtime;
     }
 
-    // get's any available runway or returns null
+    /* AI didn't cook with this once. Must not have had enough context to make a correct implementation choice */
     public Runway getAvailableRunway() {
         for (int i = 0; i < runways.size(); i++) {
             try {
@@ -112,5 +112,17 @@ public class SimulationContext {
 
     public void tryScheduleLanding(int runwayId) {
         
+    }
+
+    /**
+     * Get runway for landing.
+     */
+    public Runway getLandingRunway() {
+        for (Runway r: runways) {
+            if (r.isAvailableForLanding()) {
+                return r;
+            }
+        }
+        return null;
     }
 }

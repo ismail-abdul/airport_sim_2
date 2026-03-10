@@ -6,15 +6,15 @@ import com.airport_sim_2.objects.Aircraft;
  * This event describes an aircraft taking off from a specific runway.
  * Which aircraft is irrelevant. We are simply taking the highest priority departure and executing.
  */
-public class TakeOffEvent extends RunwayEvent {
+public class RunwayTakeOff extends RunwayEvent {
     
-    public TakeOffEvent(Double eventTime, int runwayId) {
+    public RunwayTakeOff(Double eventTime, int runwayId) {
         super(eventTime, runwayId);
     }
 
     @Override
     public EventType getType() {
-        return EventType.TAKEOFF;
+        return EventType.RUNWAY_TAKEOFF;
     }
 
     @Override

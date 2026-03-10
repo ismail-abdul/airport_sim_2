@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.airport_sim_2.controller.StatisticsCollector;
 import com.airport_sim_2.model.SimulationContext;
+import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
 import com.airport_sim_2.objects.Runway;
@@ -17,7 +18,12 @@ public class DummySimulationContext {
 
     //Helper method to create a dummy aircraft for our tests
     public static Aircraft createDummyAircraft() {
+<<<<<<< HEAD
         return new Aircraft("TEST", "OP", "ORG", "DST", 200.0f, 1000.0f, 100, AircraftStatus.NORMAL, 0.0);
+=======
+        // return SimulationEngine.genNewAircraft(0.0);
+        return new Aircraft("TEST", "OP", "ORG", "DST", 200.0f, 1000.0f, 100.0f, AircraftStatus.NORMAL, 0.0);
+>>>>>>> 41c5396f69745a1a280ede9fc2c6dbdb75856b46
     }
 
     // Helper method to create a dummy simulation context with empty holding patterns and takeoff queues
