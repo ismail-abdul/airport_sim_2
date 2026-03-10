@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import com.airport_sim_2.model.TimeManager;
 import com.airport_sim_2.objects.Aircraft;
+import com.airport_sim_2.objects.Runway;
 
 public class View extends Application{
     @Override
@@ -107,23 +108,38 @@ public class View extends Application{
         timeManager.resume();
     }
 
-    private ObservableList<Aircraft> data = FXCollections.observableArrayList();
+    private ObservableList<Aircraft> aircraftData = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Aircraft> topLeftLeftTable;
 
     @FXML
     public void initialize() {
-        topLeftLeftTable.setItems(data);
+        topLeftLeftTable.setItems(aircraftData);
+        bottomLeftLeftTable.setItems(runwayData);
     }
 
     public void addAircraft(Aircraft aircraft) {
-        data.add(aircraft);
+        aircraftData.add(aircraft);
     }
 
     public void addMultipleAircraft(Aircraft... aircraft) {
-        data.addAll(aircraft);
+        aircraftData.addAll(aircraft);
     }
 
+    private ObservableList<Runway> runwayData = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<Runway> bottomLeftLeftTable;
+
+
+
+    public void addRunway(Runway runway) {
+        runwayData.add(runway);
+    }
+
+    public void addMultipleRunways(Runway... runways) {
+        runwayData.addAll(runways);
+    }
     
 }
