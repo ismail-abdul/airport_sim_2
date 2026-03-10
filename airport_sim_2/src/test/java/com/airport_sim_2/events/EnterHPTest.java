@@ -37,7 +37,7 @@ public class EnterHPTest {
 
         // Fill the runway
         context = DummySimulationContext.setup();
-        context.getRunway(1).occupy(new Aircraft("TEMPORARY", "OP", "ORG", "DST", 200.0f, 1000.0f, 100.0f, AircraftStatus.NORMAL, 0.0));
+        context.getRunway(1).occupy(new Aircraft("TEMPORARY", "OP", "ORG", "DST", 200.0f, 1000.0f, 100, AircraftStatus.NORMAL, 0.0));
 
         // Aircraft to add to holding pattern
         Aircraft test = DummySimulationContext.createDummyAircraft();

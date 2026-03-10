@@ -17,7 +17,7 @@ public class DummySimulationContext {
 
     //Helper method to create a dummy aircraft for our tests
     public static Aircraft createDummyAircraft() {
-        return new Aircraft("TEST", "OP", "ORG", "DST", 200.0f, 1000.0f, 100.0f, AircraftStatus.NORMAL, 0.0);
+        return new Aircraft("TEST", "OP", "ORG", "DST", 200.0f, 1000.0f, 100, AircraftStatus.NORMAL, 0.0);
     }
 
     // Helper method to create a dummy simulation context with empty holding patterns and takeoff queues

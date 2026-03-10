@@ -9,12 +9,9 @@ public class Aircraft {
     private final String origin;
     private final String destination;
     private final float groundSpeed;
-    
     private final int altitude;
-    private final static float maxAltitude = 20; // artbritrary units of distance since seperation will be constant
-    private static int altitude_counter = 1; 
 
-    private float fuel; // minutes of fuel remaining        
+    private float fuel; // litres of fuel remaining
     private AircraftStatus status;
     private final Double scheduled_ts; // schedule timestamp for processing in seconds / ticks
     private Double process_ts; // actual timestamp for when the aircraft is processed
@@ -36,12 +33,8 @@ public class Aircraft {
         this.origin = origin;
         this.destination = destination;
         this.groundSpeed = groundSpeed; //units of fuel per second/tick
-        if (altitude_counter > maxAltitude) {
-            throw new IllegalArgumentException("aircraft cannot exceed maximum altitude within holding pattern");
-        } else {
-            this.altitude = altitude_counter++;
-        }
-         this.fuel = fuel;
+        this.altitude = altitude;
+        this.fuel = fuel;
         this.status = status;
         this.scheduled_ts = scheduled_processing_timestamp;
     }

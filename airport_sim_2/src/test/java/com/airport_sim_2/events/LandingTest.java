@@ -47,7 +47,7 @@ public class LandingTest {
         context = DummySimulationContext.setup();
         Aircraft test = DummySimulationContext.createDummyAircraft();
         Runway runway = context.getRunway(1);
-        context.getRunway(1).occupy(new Aircraft("TEMPORARY", "OP", "ORG", "DST", 200.0f, 1000.0f, 100.0f, AircraftStatus.NORMAL, 0.0));
+        context.getRunway(1).occupy(new Aircraft("TEMPORARY", "OP", "ORG", "DST", 200.0f, 1000.0f, 100, AircraftStatus.NORMAL, 0.0));
 
 
         context.getHoldingPattern().enqueue(test);
