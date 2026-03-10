@@ -22,7 +22,6 @@ public class SimulationController {
     private SimulationContext context;
     private SimulationEngine engine;
     private Random random;
-    private double currentTime;
     private double endTime;
 
     public SimulationController(double endtime) {
@@ -119,5 +118,13 @@ public class SimulationController {
 
     public double getCurrentTime() {
         return context.getCurrentTime();
+    }
+
+    public SimulationEngine getEngine() {
+        return engine;
+    }
+
+    public double getEndTime() {
+        return endTime;
     }
 }

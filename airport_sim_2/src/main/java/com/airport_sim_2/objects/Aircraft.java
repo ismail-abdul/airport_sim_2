@@ -92,7 +92,12 @@ public class Aircraft {
     public Double getActualTime() {
         return this.process_ts;
     }
-
+    
+    public void setActualTime(Double process_ts) {
+        assert process_ts >= 0;
+        this.process_ts = process_ts;
+    }
+    
     public void reduceFuel(float amount) {
         fuel -= amount;
         if (fuel < 0) {
@@ -103,10 +108,6 @@ public class Aircraft {
         if (fuel <= 10 && status == AircraftStatus.NORMAL) {
             status = AircraftStatus.FUEL;
         }
-    }
-
-    public void setActualTime(Double process_ts) {
-        this.process_ts = process_ts;
     }
 
     /**

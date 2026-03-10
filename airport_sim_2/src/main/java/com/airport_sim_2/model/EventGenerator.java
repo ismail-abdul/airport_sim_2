@@ -8,7 +8,7 @@ import com.airport_sim_2.events.Landing;
 import com.airport_sim_2.events.LeaveHP;
 import com.airport_sim_2.events.RunwayModeChangeEvent;
 import com.airport_sim_2.events.RunwayStatusChangeEvent;
-import com.airport_sim_2.events.TakeOffEvent;
+import com.airport_sim_2.events.RunwayTakeOff;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
 
@@ -52,10 +52,10 @@ public class EventGenerator {
                 expected = this.random.nextGaussian(aircraft.getScheduledTime(), 5*60);
                 event = new Landing(expected, aircraft, runway.getId());
                 break;
-            case TAKEOFF:
+            case RUNWAY_TAKEOFF:
                 // Temporarily assume that there is only one runway?
                 expected = this.random.nextGaussian(aircraft.getScheduledTime(), 5*60);
-                event = new TakeOffEvent(expected, runway.getId());
+                event = new RunwayTakeOff(expected, runway.getId());
                 break;
             case ENTER_HP:
                 expected = this.random.nextGaussian(aircraft.getScheduledTime(), 5*60);
