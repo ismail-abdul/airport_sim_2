@@ -1,5 +1,6 @@
 package com.airport_sim_2.events;
 
+import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.Aircraft;
 
@@ -10,6 +11,11 @@ import com.airport_sim_2.objects.Aircraft;
 public class Diversion extends AbstractEvent {
 
     private final Aircraft aircraft; 
+
+    @Override
+    public EventType getType() {
+        return EventType.DIVERSION;
+    }
 
     /**
      * @param eventTime Describes when this event should occur if carried out

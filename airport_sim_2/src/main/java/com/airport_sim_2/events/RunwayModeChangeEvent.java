@@ -1,11 +1,18 @@
 package com.airport_sim_2.events;
 
+import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.objects.RunwayOpMode;
 
 public class RunwayModeChangeEvent extends RunwayEvent {
     private final RunwayOpMode newMode;
-    public RunwayModeChangeEvent(Double eventTime, int runwayId, RunwayOpMode newMode) {
+
+    @Override
+    public EventType getType() {
+        return EventType.RUNWAY_OP_MODE_CHANGE;
+    }
+
+    public RunwayModeChangeEvent(double eventTime, int runwayId, RunwayOpMode newMode) {
         super(eventTime, runwayId); 
         this.newMode = newMode;
     }

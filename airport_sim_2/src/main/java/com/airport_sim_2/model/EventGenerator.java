@@ -1,11 +1,13 @@
 package com.airport_sim_2.model;
 
-import java.time.LocalDateTime;
 import java.util.Random;
 
 import com.airport_sim_2.events.EnterHP;
 import com.airport_sim_2.events.Event;
 import com.airport_sim_2.events.Landing;
+import com.airport_sim_2.events.LeaveHP;
+import com.airport_sim_2.events.RunwayModeChangeEvent;
+import com.airport_sim_2.events.RunwayStatusChangeEvent;
 import com.airport_sim_2.events.TakeOffEvent;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
@@ -17,6 +19,8 @@ import com.airport_sim_2.objects.Runway;
 public class EventGenerator {
     private Random random;
     private final EventType eventType;
+    private double stdDev;
+    private double mean;
     
     /**
      * @param eventType The type of event this generator creates
@@ -26,6 +30,8 @@ public class EventGenerator {
     public EventGenerator(EventType eventType, double mean, double stdDev) {
         this.eventType = eventType;
         this.random = new Random();
+        this.mean = mean;
+        this.stdDev = stdDev;
     }
     
     /**
@@ -36,7 +42,7 @@ public class EventGenerator {
      * @param time
      * @return A new event scheduled at currentTime + normally distributed interval. Or null 
      */
-    public Event generateNext(double currentTime, Aircraft aircraft, Runway runway, LocalDateTime time) {
+    public Event generateNext(double currentTime, Aircraft aircraft, Runway runway) {
         Event event = null;
         double expected;
         
@@ -55,12 +61,39 @@ public class EventGenerator {
                 expected = this.random.nextGaussian(aircraft.getScheduledTime(), 5*60);
                 event = new EnterHP(expected, aircraft);
                 break;
-            /** 
-            case DIVERSION:
-                Schedule the diversion in the future in case 
-                Or wait for the element at front of holding pattern to be less than the current simulation time
+            case LEAVE_HP:
+                event = new LeaveHP(currentTime, aircraft);
                 break;
-            */
+            // case CRITICAL_FUEL_LEVEL:
+            //      handle fuel level by 
+            //      break;
+            case RUNWAY_OP_MODE_CHANGE:
+                // Change the stored runway in place.
+                event = new RunwayModeChangeEvent(currentTime, runway.getId(), runway.getMode());
+                break;
+            case RUNWAY_OP_STATUS_CHANGE:
+                event = new RunwayStatusChangeEvent(currentTime, runway.getId(), runway.getStatus());
+                break;
+            case DIVERSION:
+                // Wait for the element at front of holding pattern to be less than the current simulation time
+                // break;
+                // event = new Diversion(currentTime, aircraft);
+                // Could be an event for notifying the view.
+                break;
+            case AIRCRAFT_EM_STATUS_CHANGE:
+            //     Another event for the UI
+            //     event = new Aircraft;
+                break;
+            case CRITICAL_FUEL_LEVEL:
+                break;
+            case MECHANICAL_FAILURE:
+                break;
+            case PASSENGER_HEALTH:
+                break;
+            case RUNWAY_FREE:
+                break;
+            case TAKEOFF_CANCELLATION:
+                break;
             default:
                 System.out.println("Unimplemented or error");
         }
