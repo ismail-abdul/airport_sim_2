@@ -12,7 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 import com.airport_sim_2.model.TimeManager;
+import com.airport_sim_2.objects.Aircraft;
 
 public class View extends Application{
     @Override
@@ -103,4 +107,23 @@ public class View extends Application{
         timeManager.resume();
     }
 
+    private ObservableList<Aircraft> data = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<Aircraft> topLeftLeftTable;
+
+    @FXML
+    public void initialize() {
+        topLeftLeftTable.setItems(data);
+    }
+
+    public void addAircraft(Aircraft aircraft) {
+        data.add(aircraft);
+    }
+
+    public void addMultipleAircraft(Aircraft... aircraft) {
+        data.addAll(aircraft);
+    }
+
+    
 }
