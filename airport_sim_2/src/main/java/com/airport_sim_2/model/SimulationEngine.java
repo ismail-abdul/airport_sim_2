@@ -3,8 +3,12 @@ package com.airport_sim_2.model;
 import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import com.airport_sim_2.events.Event;
+import com.airport_sim_2.objects.Aircraft;
+import com.airport_sim_2.objects.AircraftStatus;
+import com.airport_sim_2.objects.Runway;
 
 /**
  * Main simulation engine that manages, creates and processes events 
@@ -13,6 +17,13 @@ import com.airport_sim_2.events.Event;
  * Uses discrete event simulation with a priority queue.
  */
 public class SimulationEngine {
+    // I'm questioning why the SimContext needs to be part of the engine.
+    // Depends on what you want the engine to be reponsible for.
+    // If the sim context is used to generate events and the event queue is kept in engine as well.
+    // Then I suppose it makes sense for the engine to alter the queue entirely. 
+    // Maybe it just needs to emit events to the view and model as well. 
+    // That seems more parellilisable. 
+    private SimulationContext ctx; 
     private PriorityQueue<Event> eventQueue;
     private Map<EventType, EventGenerator> generators;
     private double currentTime;
@@ -22,7 +33,7 @@ public class SimulationEngine {
         this.eventQueue = new PriorityQueue<>();
         this.generators = new HashMap<>();
         this.currentTime = 0.0;
-        this.endTime = endTime;
+        this.endTime = endTime + 60*30;
     }
     
     /**
@@ -35,17 +46,42 @@ public class SimulationEngine {
     public void registerEventType(EventType eventType, double mean, double stdDev) {
         EventGenerator generator = new EventGenerator(eventType, mean, stdDev);
         generators.put(eventType, generator);
-        
-        // Generate the first event of this type
-        // Event initialEvent = generator.generateNext(0.0);
-        // eventQueue.add(initialEvent);
     }
     
+    public Aircraft genNewAircraft(Double scheduled_ts) {
+        Random random = new Random();
+        String callsign = CallsignGenerator.generateCallsign();
+        String operator = OperatorGenerator.generateOperator();
+        String[] route = RouteGenerator.generateRoute();
+        float groundspeed = random.nextFloat(100,400) ; // units of fuel per second
+        float fuel = random.nextFloat(groundspeed * 8*60*60); // units of fuel
+        Aircraft aircraft = new Aircraft(callsign, operator, route[0], route[1], groundspeed, fuel, 0, AircraftStatus.NORMAL, scheduled_ts);
+        return aircraft;
+    }
     /**
      * Run the simulation until the end time is reached.
      */
     public void run() {
         System.out.println("Starting simulation...");
+
+        double timestamp = currentTime;
+        // Seed the event queue with each necessary type: takeoffs and landings
+        for (int i = 0; i < 5; i++) {
+            Aircraft aircraft = genNewAircraft(timestamp);
+            // EnterHP event = new EnterHP(currentTime, aircraft);
+            ctx.getHoldingPattern().enqueue(aircraft);
+            // eventQueue.add(event); // 
+            timestamp += 5*60;
+        }
+
+        timestamp = currentTime;
+        for (int i = 0; i < 5; i++) {
+            Aircraft aircraft = genNewAircraft(timestamp);
+            ctx.getTakeOffQueue().enqueue(aircraft);
+            // event can be generated annd timestamps during actaul operation of the simulation
+            // eventQueue.add(event)
+        }
+        
         
         while (!eventQueue.isEmpty() && currentTime < endTime) {
             // Get the next event (earliest in time)
@@ -58,12 +94,50 @@ public class SimulationEngine {
                 break;
             }
             
-            // Process the event
+            // Process the event 
             processEvent(event);
             
             // Generate the next occurrence of this event type
             EventGenerator generator = generators.get(event.getType());
-            Event nextEvent = generator.generateNext(currentTime);
+
+            // Use switch case to decide on timing and necessary objects. 
+            Aircraft aircraft = null;
+            Runway runway = null;
+            Double scheduled_ts = null;
+            
+            switch (event.getType()) {
+                case TAKEOFF:
+                    break;
+                case ENTER_HP:
+                    break;
+                case AIRCRAFT_EM_STATUS_CHANGE:
+                    break;
+                case CRITICAL_FUEL_LEVEL:
+                    break;
+                case DIVERSION:
+                    break;
+                case LANDING:
+                    break;
+                case LEAVE_HP:
+                    break;
+                case MECHANICAL_FAILURE:
+                    break;
+                case PASSENGER_HEALTH:
+                    break;
+                case RUNWAY_FREE:
+                    break;
+                case RUNWAY_OP_MODE_CHANGE:
+                    break;
+                case RUNWAY_OP_STATUS_CHANGE:
+                    break;
+                case TAKEOFF_CANCELLATION:
+                    break;
+                default:
+                    System.out.println("Unimplemented cases. This will likely fail");
+                    break;
+            }
+            
+            Event nextEvent = generator.generateNext(currentTime, null, null);
             
             if (nextEvent.getTimestamp() <= endTime) {
                 eventQueue.add(nextEvent);
