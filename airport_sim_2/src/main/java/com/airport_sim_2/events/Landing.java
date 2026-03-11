@@ -50,27 +50,7 @@ public class Landing extends AbstractEvent   {
     */
     @Override
     public void process(SimulationContext context) {
-        // check for a stale event as the aircraft may have already been diverted
-        if (!context.getHoldingPattern().contains(aircraft)) {
-            return;
-        }
-
-        Runway runway = context.getRunway(runwayID);
-        // safety check
-        if (!runway.isAvailableForLanding()) {
-            return;
-        }
-
-        // remove from holding
-        context.getHoldingPattern().remove(aircraft);
-        // occupy runway
-        runway.occupy(aircraft);
-        // record arrival wait time
-        Double waitMinutes = (eventTime - aircraft.getScheduledTime()) / 60;
-        context.getStatistics().recordArrivalWait(waitMinutes);
-        // schedule runway release
-        Double releaseTime = (double) eventTime + context.getLandingDuration();
-        context.scheduleEvent(new RunwayFreeEvent(releaseTime, runwayID));
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // Handle landing with greed.
