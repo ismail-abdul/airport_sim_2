@@ -69,6 +69,10 @@ public class SimulationContext {
         return null;
     }
     
+    /**
+     * @return A Runway object with the matching runway id. If not found, returns <b>null</b>.
+     * @param runwayId
+     */
     public Runway getRunway(int runwayId) {
         return runways.stream().filter(r -> r.getId() == runwayId).findFirst().orElse(null);
     }

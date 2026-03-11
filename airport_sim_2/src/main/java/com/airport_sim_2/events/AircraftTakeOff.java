@@ -2,10 +2,11 @@ package com.airport_sim_2.events;
 
 import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
+import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 
 /**
- * This event describe a specific aircraft actually taking off from the 
+ * This event is used to schedule take off that will happen in the future. 
  */
 public class AircraftTakeOff extends AbstractEvent {
 
@@ -21,6 +22,8 @@ public class AircraftTakeOff extends AbstractEvent {
     public EventType getType() {
         return EventType.AC_TAKEOFF;
     }
+
+    // NOTE - Kishor will do processEvent for this one 
 
     @Override
     public void process(SimulationContext context) {

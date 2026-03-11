@@ -1,7 +1,5 @@
 package com.airport_sim_2.model;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Random;
 
@@ -10,7 +8,6 @@ import com.airport_sim_2.events.EnterHP;
 import com.airport_sim_2.events.Event;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
-import com.airport_sim_2.objects.Runway;
 
 /**
  * Manages, creates and processes events 
@@ -26,35 +23,13 @@ public class SimulationEngine {
      * Whilst the holding pattern and takeofff queue exist. 
      * The actions of the aircraft need to be scheduled properly. 
      */
-    private Map<EventType, EventGenerator> generators;
     private double currentTime;
     private double endTime;
     
     public SimulationEngine(double endTime) {
         this.eventQueue = new PriorityQueue<>();
-        this.generators = new HashMap<>();
-        for (EventType type: EventType.values()) {
-            switch (type) {
-                case AC_TAKEOFF:
-                    break;
-                default:
-                    break;
-            }
-        }
         this.currentTime = 0.0;
         this.endTime = endTime + 60*30;
-    }
-    
-    /**
-     * Register an event generator for a specific event type.
-     * 
-     * @param eventType The type of event
-     * @param mean Mean interval between events
-     * @param stdDev Standard deviation of interval
-     */
-    public void registerEventType(EventType eventType, double mean, double stdDev) {
-        EventGenerator generator = new EventGenerator(eventType, mean, stdDev);
-        generators.put(eventType, generator);
     }
     
     /**
@@ -110,55 +85,8 @@ public class SimulationEngine {
             if (currentTime > endTime) {
                 break;
             }
-            
             // Process the event 
             event.processEvent(this);
-            
-            // Generate the next occurrence of this event type
-            EventGenerator generator = generators.get(event.getType());
-
-            // Use switch case to decide on timing and necessary objects. 
-            Aircraft aircraft = null;
-            Runway runway = null;
-            Double scheduled_ts = null;
-            
-            switch (event.getType()) {
-                // case RUNWAY_TAKEOFF:
-                //     break;
-                case ENTER_HP:
-                    break;
-                // case AIRCRAFT_EM_STATUS_CHANGE:
-                //     break;
-                // case CRITICAL_FUEL_LEVEL:
-                //     break;
-                // case DIVERSION:
-                //     break;
-                case LANDING:
-                    break;
-                // case LEAVE_HP:
-                //     break;
-                // case MECHANICAL_FAILURE:
-                //     break;
-                // case PASSENGER_HEALTH:
-                //     break;
-                // case RUNWAY_FREE:
-                //     break;
-                // case RUNWAY_OP_MODE_CHANGE:
-                //     break;
-                // case RUNWAY_OP_STATUS_CHANGE:
-                //     break;
-                case TAKEOFF_CANCELLATION:
-                    break;
-                default:
-                    System.out.println("Unimplemented cases. This will likely fail");
-                    break;
-            }
-            
-            Event nextEvent = generator.generateNext(currentTime, null, null);
-            
-            if (nextEvent.getTime() <= endTime) {
-                eventQueue.add(nextEvent);
-            }
         }
         
         System.out.println("Simulation ended at time: " + currentTime);

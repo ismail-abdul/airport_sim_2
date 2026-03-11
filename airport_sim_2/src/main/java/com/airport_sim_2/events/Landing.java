@@ -7,14 +7,12 @@ import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
 import com.airport_sim_2.objects.RunwayOpMode;
 
-/* What information does the Landing Class need?
-Keep in mind seperation of concerns from the controller. 
 
-Aircraft reference
-Runway reference
-timestamp etc
-*/
-
+/**
+ * The act of an aircraft literally landing on a runway.
+ * If Landing can happen, then a runway occupation should occur after the fact. 
+ * 
+ */
 public class Landing extends AbstractEvent   {
     private final Aircraft aircraft;
     private final int runwayID;
