@@ -182,6 +182,14 @@ public class SimulationEngine {
         eventQueue.add(e);
     }
 
+    public boolean hasMoreEvents() {
+        return !eventQueue.isEmpty();
+    }
+
+    public Event getNextEvent(){
+        return eventQueue.peek();
+    }
+
 
     /**
      * Removes event from fron of the event queue.

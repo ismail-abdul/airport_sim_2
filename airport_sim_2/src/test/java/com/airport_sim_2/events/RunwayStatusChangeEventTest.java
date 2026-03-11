@@ -15,7 +15,7 @@ public class RunwayStatusChangeEventTest {
     @Test
     public void RunwayStatusChangeToEquipmentFailureTest(){
 
-        context = DummySimulationContext.setup();
+        context = DummySimulation.setupContext();
 
         RunwayStatusChangeEvent event = new RunwayStatusChangeEvent(10.0, 1, RunwayOperationalStatus.EQUIPMENT_FAILURE);
         
@@ -30,7 +30,7 @@ public class RunwayStatusChangeEventTest {
     @Test
     public void RunwayStatusChangeToSnowClearanceTest(){
 
-        context = DummySimulationContext.setup();
+        context = DummySimulation.setupContext();
 
         RunwayStatusChangeEvent event = new RunwayStatusChangeEvent(10.0, 1, RunwayOperationalStatus.SNOW_CLEARANCE);
         
@@ -45,7 +45,7 @@ public class RunwayStatusChangeEventTest {
     @Test
     public void RunwayStatusChangeToInspectionTest(){
 
-        context = DummySimulationContext.setup();
+        context = DummySimulation.setupContext();
 
         RunwayStatusChangeEvent event = new RunwayStatusChangeEvent(10.0, 1, RunwayOperationalStatus.INSPECTION);
         

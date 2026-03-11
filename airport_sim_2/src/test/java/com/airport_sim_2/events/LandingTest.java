@@ -7,19 +7,24 @@ import org.junit.Test;
 
 import com.airport_sim_2.controller.StatisticsCollector;
 import com.airport_sim_2.model.SimulationContext;
+import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
 import com.airport_sim_2.objects.Runway;
 
 public class LandingTest {
     private SimulationContext context;
+    private SimulationEngine engine;
+    
 
     // Test to check if Landing the aircraft with free runways works
     @Test
     public void landingEventTest(){
 
-        context = DummySimulationContext.setup();
-        Aircraft test = DummySimulationContext.createDummyAircraft();
+        context = DummySimulation.setupContext();
+        engine = DummySimulation.setupEngine();
+
+        Aircraft test = DummySimulation.createDummyAircraft();
         Runway runway = context.getRunway(1);
 
         context.getHoldingPattern().enqueue(test);
@@ -37,15 +42,16 @@ public class LandingTest {
         assertEquals(2.0, stats.getMaxWaitTimeRecorded(),0.001);
 
         // Check if free runway event scheduled
-        assertTrue(context.hasMoreEvents());
+        assertTrue(engine.hasMoreEvents());
     }
     
     // Test to check if Landing the aircraft with full runways does nothing
     @Test
     public void cancelLandingEventTest(){
 
-        context = DummySimulationContext.setup();
-        Aircraft test = DummySimulationContext.createDummyAircraft();
+        context = DummySimulation.setupContext();
+
+        Aircraft test = DummySimulation.createDummyAircraft();
         Runway runway = context.getRunway(1);
         context.getRunway(1).occupy(new Aircraft("TEMPORARY", "OP", "ORG", "DST", 200.0f, 1000.0f, 100, AircraftStatus.NORMAL, 0.0));
 
