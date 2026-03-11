@@ -33,6 +33,6 @@ public class DummySimulation {
 
     // Helper method to create a dummy simulation context with empty holding patterns and takeoff queues
     public static SimulationEngine setupEngine(){
-        return new SimulationEngine(1000.0);
+        return new SimulationEngine(1000.0,setupContext());
     }
 }
