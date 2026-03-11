@@ -5,25 +5,31 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.airport_sim_2.model.SimulationContext;
+import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
 
 public class EnterHPTest {
     private SimulationContext context;
+    private SimulationEngine engine;
 
     // Test to check aircraft is added to holding pattern then moved into the runway
     @Test
     public void AircraftEntersFromHPToEmptyRunwayTest(){
 
-        context = DummySimulationContext.setup();
+        context = DummySimulation.setupContext();
+        engine = DummySimulation.setupEngine();
 
-        Aircraft test = DummySimulationContext.createDummyAircraft();
+        Aircraft test = DummySimulation.createDummyAircraft();
 
         EnterHP enter_hp = new EnterHP(5.0, test);
 
         // process the events
         enter_hp.process(context);
-        context.getNextEvent().process(context);
+
+        Event scheduledEvent = engine.getNextEvent();
+        scheduledEvent.process(context);
+        engine.removeEvent(scheduledEvent);
 
 
         // Checks if aircraft is in runway and holding pattern is still empty
@@ -36,11 +42,11 @@ public class EnterHPTest {
     public void AircraftEntersFromHPToFullRunwayTest(){
 
         // Fill the runway
-        context = DummySimulationContext.setup();
-        context.getRunway(1).occupy(new Aircraft("TEMPORARY", "OP", "ORG", "DST", 200.0f, 1000.0f, 100.0f, AircraftStatus.NORMAL, 0.0));
+        context = DummySimulation.setupContext();
+        context.getRunway(1).occupy(new Aircraft("TEMPORARY", "OP", "ORG", "DST", 200.0f, 1000.0f, 100, AircraftStatus.NORMAL, 0.0));
 
         // Aircraft to add to holding pattern
-        Aircraft test = DummySimulationContext.createDummyAircraft();
+        Aircraft test = DummySimulation.createDummyAircraft();
 
         EnterHP enter_hp = new EnterHP(5.0, test);
 

@@ -1,11 +1,19 @@
 package com.airport_sim_2.objects;
 
+/**
+ * A class for describing the objects that represent a runway
+ * within our airport simulation. 
+ * 
+ * @p
+ */
 public class Runway {
 
     private final int id;
     private RunwayOpMode mode;
     private RunwayOperationalStatus status;
-    private Aircraft currentAircraft; // Reference to whatever aircraft is currently using it?
+
+    /** Reference to whatever aircraft is currently using it? Null when unoccupied */
+    private Aircraft currentAircraft; 
 
     public Runway(int id, RunwayOpMode mode, RunwayOperationalStatus status) {
         this.id = id;

@@ -2,6 +2,7 @@ package com.airport_sim_2.events;
 
 import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
+import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 
 /**
@@ -11,11 +12,6 @@ import com.airport_sim_2.objects.Aircraft;
 public class Diversion extends AbstractEvent {
 
     private final Aircraft aircraft; 
-
-    @Override
-    public EventType getType() {
-        return EventType.DIVERSION;
-    }
 
     /**
      * @param eventTime Describes when this event should occur if carried out
@@ -27,13 +23,34 @@ public class Diversion extends AbstractEvent {
     }
 
     @Override
-    public void process(SimulationContext context) {
-
-        // remove aircraft from holding pattern if still there
-        context.getHoldingPattern().remove(aircraft);
-        // update statistics
-        context.getStatistics().incrementDiverted();
-        // mark aircraft state
-        context.markAircraftDiverted(aircraft);
+    public EventType getType() {
+        return EventType.DIVERSION;
     }
+
+    @Override
+    public void process(SimulationContext context) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void processEvent(SimulationEngine engine) {      
+        // check if there is an aircraft to divert  
+        if (!engine.getCtx().getHoldingPattern().remove(aircraft)) {
+            return;
+        }
+
+        // remove aircraft from Holding Pattern
+        engine.getCtx().getHoldingPattern().remove(aircraft);
+
+        // record diversion stats
+        engine.getCtx().getStatistics().incrementDiverted();
+
+        // mark aircraft as diverted
+        aircraft.setActualTime(engine.getCurrentTime());
+
+        // debugging
+        System.out.println("Aircraft " + aircraft.getCallsign() + "diverted at time" + engine.getCurrentTime());
+    }
+
+
 }
