@@ -57,13 +57,22 @@ public class SimulationContext {
     }
 
     /* AI didn't cook with this once. Must not have had enough context to make a correct implementation choice */
+    // public Runway getAvailableRunway() {
+    //     for (int i = 0; i < runways.size(); i++) {
+    //         try {
+    //             Runway runway = runways.get(i);
+    //             return runway;
+    //         } catch (IndexOutOfBoundsException e) {
+    //             throw new IndexOutOfBoundsException("Index exceeds bounds of runway count");
+    //         }
+    //     }
+    //     return null;
+    // }
+
     public Runway getAvailableRunway() {
-        for (int i = 0; i < runways.size(); i++) {
-            try {
-                Runway runway = runways.get(i);
-                return runway;
-            } catch (IndexOutOfBoundsException e) {
-                throw new IndexOutOfBoundsException("Index exceeds bounds of runway count");
+        for (Runway r : runways) {
+            if (r.isAvailableForTakeoff()) {
+                return r;
             }
         }
         return null;

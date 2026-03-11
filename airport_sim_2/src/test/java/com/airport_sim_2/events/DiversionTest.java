@@ -14,9 +14,9 @@ public class DiversionTest {
     @Test
     public void DiversionRemovesAircraftTest(){
 
-        context = DummySimulationContext.setup();
+        context = DummySimulation.setupContext();
 
-        Aircraft test = DummySimulationContext.createDummyAircraft();
+        Aircraft test = DummySimulation.createDummyAircraft();
 
         context.getHoldingPattern().enqueue(test);
 
