@@ -5,7 +5,6 @@ import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
-import com.airport_sim_2.objects.RunwayOpMode;
 
 
 /**

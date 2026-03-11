@@ -26,10 +26,11 @@ public class SimulationEngine {
     private double currentTime;
     private double endTime;
     
-    public SimulationEngine(double endTime) {
+    public SimulationEngine(double endTime, SimulationContext ctx) {
         this.eventQueue = new PriorityQueue<>();
         this.currentTime = 0.0;
         this.endTime = endTime + 60*30;
+        this.ctx = ctx;
     }
     
     /**

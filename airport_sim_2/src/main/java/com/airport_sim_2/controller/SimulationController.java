@@ -25,9 +25,9 @@ public class SimulationController {
     private double endTime;
 
     public SimulationController(double endtime) {
-        initialiseSimulation();
         this.endTime = endtime;
-        random = new Random();
+        this.random = new Random();
+        initialiseSimulation();
     }
 
     // Generate an event according to the necessary distribution.
@@ -50,10 +50,10 @@ public class SimulationController {
         StatisticsCollector statistics = new StatisticsCollector();
 
         // Create context
-        context = new SimulationContext(holdingPattern, takeOffQueue, runways, statistics);
+        this.context = new SimulationContext(holdingPattern, takeOffQueue, runways, statistics);
 
         // Create engine
-        engine = new SimulationEngine(this.endTime);
+        this.engine = new SimulationEngine(this.endTime , this.context);
     }
 
     public void startSimulation() {
