@@ -73,4 +73,8 @@ public class TakeOffQueue implements AircraftQueue {
         return cancelled.size();
     }
 
+    public Aircraft peek() {
+        return queue.peek();
+    }
+
 }

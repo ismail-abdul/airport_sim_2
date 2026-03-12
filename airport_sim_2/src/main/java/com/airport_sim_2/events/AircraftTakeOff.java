@@ -48,7 +48,7 @@ public class AircraftTakeOff extends AbstractEvent {
             assert runway.isAvailableForTakeoff();
 
             this.aircraft.setActualTime(engine.getCurrentTime());
-            runway.occupy(this.aircraft);
+            runway.occupy(this.aircraft);  
 
             // schedule runway release
             RunwayFreeEvent event = new RunwayFreeEvent(this.eventTime + engine.getCtx().getTakeOffDuration(), runway.getId());
@@ -70,7 +70,9 @@ public class AircraftTakeOff extends AbstractEvent {
             }
 
             // Reschedule takeoff
-            AircraftTakeOff retry = new AircraftTakeOff(this.aircraft, earliestTime);
+            double retryTime = engine.getCurrentTime() + 1;
+            AircraftTakeOff retry = new AircraftTakeOff(this.aircraft, Math.max(earliestTime, retryTime));
+            //System.out.println("Rescheduling takeoff at time " + earliestTime);
             engine.enqueueEvent(retry);
         }
     }
