@@ -92,7 +92,7 @@ public class Aircraft {
         this.process_ts = process_ts;
     }
 
-    public double getFuelTimeRemaining{
+    public double getFuelTimeRemaining(){
         return fuel_per_min / fuel;
     }
     
