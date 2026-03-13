@@ -79,3 +79,14 @@ public class StatisticsCollector {
         return divertedCount;
     }
 }
+
+
+
+
+// diversions over time
+// cancellations over time
+// HoldingPattern size over time
+// TakeOff queue size over time
+// Average wait time
+// Number of planes over time
+// Failure rate
