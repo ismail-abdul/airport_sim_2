@@ -14,7 +14,6 @@ public class RunwayStatusChangeEventTest {
     // Test for changing runway status to equipemnt failure
     @Test
     public void RunwayStatusChangeToEquipmentFailureTest(){
-
         context = DummySimulation.setupContext();
 
         RunwayStatusChangeEvent event = new RunwayStatusChangeEvent(10.0, 1, RunwayOperationalStatus.EQUIPMENT_FAILURE);

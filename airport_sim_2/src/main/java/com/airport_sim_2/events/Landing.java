@@ -1,5 +1,7 @@
 package com.airport_sim_2.events;
 
+import com.airport_sim_2.controller.StatisticsCollector;
+import com.airport_sim_2.controller.TimeSeriesPoint;
 import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.model.SimulationEngine;
@@ -53,6 +55,18 @@ public class Landing extends AbstractEvent   {
     // Handle landing with greed.
     @Override
     public void processEvent(SimulationEngine engine) {
+        // If wait time is exceeded, schedule a diversion
+        if (this.eventTime - aircraft.getScheduledTime() >= engine.getCtx().getMaxWaitTime()) {
+            Diversion event = new Diversion(this.eventTime, this.aircraft);
+            engine.enqueueEvent(event);
+            // record diversion in timeseries
+            StatisticsCollector stats = engine.getCtx().getStatistics();
+            int div_count = stats.getDivertedCount();
+            TimeSeriesPoint p = new TimeSeriesPoint(eventTime, div_count+1);
+            stats.incrementDiverted();
+            return;
+        }
+
         Runway runway = engine.getCtx().getLandingRunway();
         if (runway != null) {
             // occupy runway, scheduled it's freeing, more forward time

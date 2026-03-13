@@ -57,29 +57,7 @@ public class SimulationController {
     }
 
     public void startSimulation() {
-        /**
-        // schedule some aircraft arrivals. generate two airplanes intended to enter holding pattern some time after the beginnnig m
-        Aircraft a1 = new Aircraft("BA123", "British Airways", "Paris", "London", 450, 10000, 60, AircraftStatus.NORMAL, null);
-        Aircraft a2 = new Aircraft("AF456", "Air France", "Berlin", "London", 430, 9500, 30, AircraftStatus.NORMAL, null);
-        
-        // Schedule entry into holding pattern
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime later = now.plusMinutes(2);
-        context.scheduleEvent(new EnterHP(now, a1));
-        context.scheduleEvent(new EnterHP(later, a2));
-        
-        // run simulation engine.
-        while (context.hasMoreEvents()) {
-            Event event = context.getNextEvent();
-            // advance time. what if we need to delay an event's processing.
-            context.setCurrentTime(event.getTime());
-            event.process(context);
-            
-            checkQueues(); // check queue for diversions and cancellations
-        }
-        */
        engine.run();
-        
     }
 
     public void checkQueues(){

@@ -58,7 +58,7 @@ public class SimulationEngine {
 
         // Seed the event queue with landings
         double timestamp = currentTime;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             Aircraft aircraft = genNewAircraft(timestamp);
             EnterHP event = new EnterHP(timestamp, aircraft);
             ctx.getHoldingPattern().enqueue(aircraft);
@@ -66,25 +66,25 @@ public class SimulationEngine {
             timestamp += 5*60;
         }
 
-        for (int j = 0; j < this.getCtx().getRunways().size(); j++) {
-            Random random = new Random();
-            double time = random.nextDouble(0, endTime);
-            Runway r = this.getCtx().getRunways().get(j);
-            RunwayStatusChangeEvent event = new RunwayStatusChangeEvent(time, r.getId(), RunwayOperationalStatus.SNOW_CLEARANCE);
-            eventQueue.add(event);
-        }
+        // for (int j = 0; j < this.getCtx().getRunways().size(); j++) {
+        //     Random random = new Random();
+        //     double time = random.nextDouble(0, endTime);
+        //     Runway r = this.getCtx().getRunways().get(j);
+        //     RunwayStatusChangeEvent event = new RunwayStatusChangeEvent(time, r.getId(), RunwayOperationalStatus.SNOW_CLEARANCE);
+        //     eventQueue.add(event);
+        // }
         
         // Seed the event queue with takeoffs.
         timestamp = currentTime;
-        // for (int i = 0; i < 5; i++) {
-        //     // event can be generated annd timestamps during actaul operation of the simulation
-        //     Aircraft aircraft = genNewAircraft(timestamp);
-        //     ctx.getTakeOffQueue().enqueue(aircraft);
-        //     // uniform probability of failure of some kind. Implement failure handling once the basics work.
-        //     AircraftTakeOff event = new AircraftTakeOff(aircraft, timestamp);
-        //     eventQueue.add(event);
-        //     timestamp += 5*60;
-        // }
+        for (int i = 0; i < 5; i++) {
+            // event can be generated annd timestamps during actaul operation of the simulation
+            Aircraft aircraft = genNewAircraft(timestamp);
+            ctx.getTakeOffQueue().enqueue(aircraft);
+            // uniform probability of failure of some kind. Implement failure handling once the basics work.
+            AircraftTakeOff event = new AircraftTakeOff(aircraft, timestamp);
+            eventQueue.add(event);
+            timestamp += 5*60;
+        }
 
         for (int i = 0; i < 5; i++) {
 
@@ -157,6 +157,10 @@ public class SimulationEngine {
 
     public boolean removeEvent(Event e) {
         return eventQueue.remove(e);
+    }
+
+    public double getEndTime() {
+        return endTime;
     }
 
 }
