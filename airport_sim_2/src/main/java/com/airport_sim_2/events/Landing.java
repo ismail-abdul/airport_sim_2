@@ -56,7 +56,7 @@ public class Landing extends AbstractEvent   {
     @Override
     public void processEvent(SimulationEngine engine) {
         // If wait time is exceeded, divert the aircraft.
-        if (this.eventTime - aircraft.getScheduledTime() >= engine.getCtx().getMaxWaitTime()) {
+        if (aircraft.getFuelTimeRemaining <= 10.0) {
             engine.getCtx().getHoldingPattern().remove(aircraft);
 
             StatisticsCollector stats = engine.getCtx().getStatistics();
@@ -69,6 +69,7 @@ public class Landing extends AbstractEvent   {
         if (runway != null) {
             // occupy runway, schedule its freeing, move forward time
             assert runway.isAvailableForLanding();
+            aircraft.reduceFuel(engine.getCurrentTime() - aircraft.getCurrentTime());
             this.aircraft.setActualTime(engine.getCurrentTime());
             runway.occupy(this.aircraft);
             RunwayFreeEvent event = new RunwayFreeEvent(

@@ -12,6 +12,7 @@ public class Aircraft {
     private final int altitude;
 
     private float fuel; // litres of fuel remaining
+    private float fuel_per_min = 10;
     private AircraftStatus status;
     private final Double scheduled_ts; // schedule timestamp for processing in seconds / ticks
     private Double process_ts; // actual timestamp for when the aircraft is processed
@@ -90,16 +91,16 @@ public class Aircraft {
         assert process_ts >= 0;
         this.process_ts = process_ts;
     }
+
+    public double getFuelTimeRemaining{
+        return fuel_per_min / fuel;
+    }
     
-    public void reduceFuel(float amount) {
+    public void reduceFuel(float time) {
+        float amount = time * fuel_per_min;
         fuel -= amount;
         if (fuel < 0) {
             fuel = 0;
-        }
-
-        // auto update emergency status if the fuel is critical
-        if (fuel <= 10 && status == AircraftStatus.NORMAL) {
-            status = AircraftStatus.FUEL;
         }
     }
 
