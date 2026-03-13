@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.airport_sim_2.view.View">
   <children>
       <ToolBar id="topBar" prefHeight="40.0" prefWidth="200.0">
         <items>
             <ButtonBar id="leftButtons" prefHeight="40.0" prefWidth="45.0">
               <buttons>
-                <Button styleClass="leftButtons" fx:id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" text="Start New Simulation" textAlignment="CENTER" />
-                  <Button styleClass="leftButtons" fx:id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" text="Get Simulation Data" textAlignment="CENTER" />
+                <Button styleClass="leftButtons" fx:id="startNew" mnemonicParsing="false" text="Start New Simulation" wrapText="true" />
+                <Button styleClass="leftButtons" fx:id="getData" mnemonicParsing="false" text="Get Data" wrapText="true" />
               </buttons>
             </ButtonBar>
             <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0">
@@ -33,7 +33,7 @@
       </ToolBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <SplitPane id="leftPanel" dividerPositions="0.4942363112391931" orientation="VERTICAL" prefHeight="349.0" prefWidth="201.0">
+            <SplitPane fx:id="leftPanel" dividerPositions="0.4942363112391931" orientation="VERTICAL" prefHeight="349.0" prefWidth="201.0">
               <items>
                 <AnchorPane id="topLeftPanel" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
@@ -49,14 +49,18 @@
                               </children>
                             </AnchorPane>
                             <AnchorPane id="topLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" >
-                              <text text="Selected Plane Details" />
-                              <text text="Flight No: " />
-                              <text text="Emergency: " />
-                              <RadioButton fx:id="technicalFault" styleClass="radioButtons" text="Technical Fault" toggleGroup="$emergencyToggleGroup" />
-                              <RadioButton fx:id="lowFuel" styleClass="radioButtons" text="Low Fuel" toggleGroup="$emergencyToggleGroup" />
-                              <RadioButton fx:id="customerEmergency" styleClass="radioButtons" text="Customer Emergency" toggleGroup="$emergencyToggleGroup" />
-                              <RadioButton fx:id="none" styleClass="radioButtons" text="None" toggleGroup="$emergencyToggleGroup" />
-                              <Button fx:id="submitEmergency" text="Submit" onAction="#submitEmergencyPressed"/>
+                              <children>
+                                <VBox spacing="5" style="-fx-padding: 10;" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                                  <Text text="Selected Plane Details" style="-fx-font-weight: bold;" wrappingWidth="75" />
+                                  <Text text="Flight No: " wrappingWidth="75" />
+                                  <Text text="Emergency: " wrappingWidth="75" />
+                                  <RadioButton fx:id="technicalFault" styleClass="radioButtons" text="Technical Fault" toggleGroup="$emergencyToggleGroup" wrapText="true" maxWidth="75" />
+                                  <RadioButton fx:id="lowFuel" styleClass="radioButtons" text="Low Fuel" toggleGroup="$emergencyToggleGroup" wrapText="true" maxWidth="75" />
+                                  <RadioButton fx:id="customerEmergency" styleClass="radioButtons" text="Customer Emergency" toggleGroup="$emergencyToggleGroup" wrapText="true" maxWidth="75" />
+                                  <RadioButton fx:id="none" styleClass="radioButtons" text="None" toggleGroup="$emergencyToggleGroup" wrapText="true" maxWidth="75" />
+                                  <Button fx:id="submitEmergency" text="Submit" onAction="#submitEmergencyPressed" maxWidth="75" />
+                                </VBox>
+                              </children>
                             </AnchorPane>
                           </items>
                         </SplitPane>
@@ -68,7 +72,7 @@
                            <items>
                               <AnchorPane id="bottomLeftLeft" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="96.0">
                                  <children>
-                                    <TableView id="bottomLeftLeftTable" prefHeight="168.0" prefWidth="96.0">
+                                    <TableView fx:id="bottomLeftLeftTable" prefHeight="168.0" prefWidth="96.0">
                                        <columns>
                                           <TableColumn minWidth="9.0" prefWidth="95.0" text="All Runways" />
                                        </columns>
@@ -76,16 +80,20 @@
                                  </children>
                               </AnchorPane>
                               <AnchorPane id="bottomLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" >
-                                <text text="Selected Runway Details" />
-                                <text text="Runway No: " />
-                                <text text="Status: " />
-                                <RadioButton fx:id="runwayOperational" styleClass="radioButtons" text="Operational" toggleGroup="$runwayEmergencyToggleGroup" />
-                                <RadioButton fx:id="runwayOutOfOrder" styleClass="radioButtons" text="Out of Order" toggleGroup="$runwayEmergencyToggleGroup" />
-                                <Button fx:id="submitRunwayOperational" text="Submit" onAction="#submitRunwayOperationalPressed"/>
-                                <text text="Runway Type: " />
-                                <RadioButton fx:id="runwayTypeDeparture" styleClass="radioButtons" text="Departure" toggleGroup="$runwayTypeToggleGroup" />
-                                <RadioButton fx:id="runwayTypeArrival" styleClass="radioButtons" text="Arrival" toggleGroup="$runwayTypeToggleGroup" />
-                                <Button fx:id="submitRunwayType" text="Submit" onAction="#submitRunwayTypePressed"/>
+                                <children>
+                                  <VBox spacing="5" style="-fx-padding: 10;" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                                    <Text text="Selected Runway Details" style="-fx-font-weight: bold;" wrappingWidth="75" />
+                                    <Text text="Runway No: " wrappingWidth="75" />
+                                    <Text text="Status: " wrappingWidth="75" />
+                                    <RadioButton fx:id="runwayOperational" styleClass="radioButtons" text="Operational" toggleGroup="$runwayEmergencyToggleGroup" wrapText="true" maxWidth="75" />
+                                    <RadioButton fx:id="runwayOutOfOrder" styleClass="radioButtons" text="Out of Order" toggleGroup="$runwayEmergencyToggleGroup" wrapText="true" maxWidth="75" />
+                                    <Button fx:id="submitRunwayOperational" text="Submit" onAction="#submitRunwayOperationalPressed" maxWidth="75" />
+                                    <Text text="Runway Type: " wrappingWidth="75" />
+                                    <RadioButton fx:id="runwayTypeDeparture" styleClass="radioButtons" text="Departure" toggleGroup="$runwayTypeToggleGroup" wrapText="true" maxWidth="75" />
+                                    <RadioButton fx:id="runwayTypeArrival" styleClass="radioButtons" text="Arrival" toggleGroup="$runwayTypeToggleGroup" wrapText="true" maxWidth="75" />
+                                    <Button fx:id="submitRunwayType" text="Submit" onAction="#submitRunwayTypePressed" maxWidth="75" />
+                                  </VBox>
+                                </children>
                               </AnchorPane>
                            </items>
                         </SplitPane>

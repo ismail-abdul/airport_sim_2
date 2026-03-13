@@ -6,8 +6,11 @@ import java.util.Random;
 import com.airport_sim_2.events.AircraftTakeOff;
 import com.airport_sim_2.events.EnterHP;
 import com.airport_sim_2.events.Event;
+import com.airport_sim_2.events.RunwayStatusChangeEvent;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
+import com.airport_sim_2.objects.Runway;
+import com.airport_sim_2.objects.RunwayOperationalStatus;
 
 /**
  * Manages, creates and processes events 
@@ -26,10 +29,11 @@ public class SimulationEngine {
     private double currentTime;
     private double endTime;
     
-    public SimulationEngine(double endTime) {
+    public SimulationEngine(double endTime, SimulationContext ctx) {
         this.eventQueue = new PriorityQueue<>();
         this.currentTime = 0.0;
-        this.endTime = endTime + 60*30;
+        this.endTime = endTime;
+        this.ctx = ctx;
     }
     
     /**
@@ -54,13 +58,21 @@ public class SimulationEngine {
 
         // Seed the event queue with landings
         double timestamp = currentTime;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             Aircraft aircraft = genNewAircraft(timestamp);
-            EnterHP event = new EnterHP(currentTime, aircraft);
+            EnterHP event = new EnterHP(timestamp, aircraft);
             ctx.getHoldingPattern().enqueue(aircraft);
             eventQueue.add(event);
             timestamp += 5*60;
         }
+
+        // for (int j = 0; j < this.getCtx().getRunways().size(); j++) {
+        //     Random random = new Random();
+        //     double time = random.nextDouble(0, endTime);
+        //     Runway r = this.getCtx().getRunways().get(j);
+        //     RunwayStatusChangeEvent event = new RunwayStatusChangeEvent(time, r.getId(), RunwayOperationalStatus.SNOW_CLEARANCE);
+        //     eventQueue.add(event);
+        // }
         
         // Seed the event queue with takeoffs.
         timestamp = currentTime;
@@ -69,24 +81,36 @@ public class SimulationEngine {
             Aircraft aircraft = genNewAircraft(timestamp);
             ctx.getTakeOffQueue().enqueue(aircraft);
             // uniform probability of failure of some kind. Implement failure handling once the basics work.
-            AircraftTakeOff event = new AircraftTakeOff(aircraft, currentTime);
+            AircraftTakeOff event = new AircraftTakeOff(aircraft, timestamp);
             eventQueue.add(event);
             timestamp += 5*60;
+        }
+
+        for (int i = 0; i < 5; i++) {
+
         }
         
         
         while (!eventQueue.isEmpty() && currentTime < endTime) {
+            System.out.println("Event queue before processing");
+            printEventQueue();
             // Get the next event (earliest in time) and pop it from the event queue.
             Event event = eventQueue.poll();
             
             // Advance simulation time.
             currentTime = event.getTime();
-            
+            System.out.println("Processing event: " + event.getType() + " at time " + currentTime);
+
+            if (event.getTime() < currentTime) {
+                System.out.println("WARNING: event scheduled in the past or same time");
+            }
             if (currentTime > endTime) {
                 break;
             }
             // Process the event 
             event.processEvent(this);
+            System.out.println("Event queue before processing");
+            printEventQueue();
         }
         
         System.out.println("Simulation ended at time: " + currentTime);
@@ -118,6 +142,11 @@ public class SimulationEngine {
         return eventQueue.peek();
     }
 
+    public void printEventQueue() {
+        for (Event e : eventQueue) {
+            System.out.println(e.getType() + "@" + e.getTime());
+        }
+    }
 
     /**
      * Removes event from fron of the event queue.
@@ -128,6 +157,10 @@ public class SimulationEngine {
 
     public boolean removeEvent(Event e) {
         return eventQueue.remove(e);
+    }
+
+    public double getEndTime() {
+        return endTime;
     }
 
 }

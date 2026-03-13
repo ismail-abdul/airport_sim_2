@@ -9,6 +9,7 @@ import com.airport_sim_2.queues.HoldingPattern;
 public class EnterHP extends AbstractEvent {
 
     private final Aircraft aircraft;
+    private final double failure_rate = 0.05;
 
     @Override
     public EventType getType() {
@@ -40,5 +41,15 @@ public class EnterHP extends AbstractEvent {
             Landing landing = new Landing(engine.getCurrentTime(), aircraft, runwayId);
             engine.enqueueEvent(landing);
         }
+
+        // Random random = new Random();
+        // double lambda = 15.0 / 60.0;
+        // double interArrivalTime = -Math.log(1.0 - random.nextDouble()) / lambda;
+        // double nextTime = engine.getCurrentTime() + interArrivalTime;
+        // if (nextTime <= engine.getEndTime()) {
+        //     Aircraft nextAircraft = SimulationEngine.genNewAircraft(nextTime);
+        //     EnterHP event = new EnterHP(nextTime, nextAircraft);
+        //     engine.enqueueEvent(event);
+        // }
     }
 }

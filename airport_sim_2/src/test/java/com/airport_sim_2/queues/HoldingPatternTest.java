@@ -1,10 +1,10 @@
 package com.airport_sim_2.queues;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import java.time.LocalDateTime;
 
 /**
  * Unit tests for the Holding Pattern.
@@ -14,7 +14,7 @@ public class HoldingPatternTest {
 
     private Aircraft createPlane(String callsign, float fuel) {
         //Using AircraftStatus.NORMAL to test how fuel alone triggers the logic
-        return new Aircraft(callsign, "OP", "ORG", "DST", 200f, 1000f, fuel, AircraftStatus.NORMAL, LocalDateTime.now());
+        return new Aircraft("TEST", "OP", "ORG", "DST", 200.0f, 1000.0f, 100, AircraftStatus.NORMAL, 0.0);
     }
 
     @Test

@@ -11,6 +11,12 @@ public class StatisticsCollector {
     private List<Double> departureWaitTimes = new ArrayList<>();
     private double maxWaitTimeRecorded = 0;
 
+    // Time series data
+    private List<TimeSeriesPoint> diversion_time_series;
+    private List<TimeSeriesPoint> cancellation_time_series;
+    private List<TimeSeriesPoint> hp_time_series;
+    private List<TimeSeriesPoint> toq_time_series;
+
     public void updateMaxHoldingSize(int currentSize) {
         if (currentSize > maxHoldingSize) {
             maxHoldingSize = currentSize;
@@ -79,3 +85,14 @@ public class StatisticsCollector {
         return divertedCount;
     }
 }
+
+
+
+
+// diversions over time
+// cancellations over time
+// HoldingPattern size over time
+// TakeOff queue size over time
+// Average wait time
+// Number of planes over time
+// Failure rate

@@ -69,7 +69,8 @@ public class SimulationContext {
     //     return null;
     // }
 
-    public Runway getAvailableRunway() {
+
+    public Runway getAvailableTakeOffRunway() {
         for (Runway r : runways) {
             if (r.isAvailableForTakeoff()) {
                 return r;

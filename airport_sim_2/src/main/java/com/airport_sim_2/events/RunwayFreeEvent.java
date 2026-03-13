@@ -1,10 +1,9 @@
 package com.airport_sim_2.events;
 
-import java.util.List;
-
 import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.model.SimulationEngine;
+import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
 
 /**
@@ -49,14 +48,25 @@ public class RunwayFreeEvent extends RunwayEvent {
      */
     @Override
     public void processEvent(SimulationEngine engine) {
-        // Get the relevant runway
-        assert !(this.runwayId==-1) : "Invalid runway id for this RunwayFreeEvent";
-        List<Runway> list = engine.getCtx().getRunways();
-        Runway r = list.get(this.runwayId);
-        assert r.isOccupied() 
-            : String.format("Runway with id %d isn't occupied. Can't be 'freed'.", runwayId);
-        r.release();
-        // No need to schedule another instance of the event.
+        Runway runway = engine.getCtx().getRunway(runwayId);
+        if (runway == null) {
+            throw new IllegalStateException("Runway " + runwayId + " does not exist.");
+        }
+
+        // Free the runway
+        runway.release();   
+
+        // Landing has priority over takeoff
+        if (!engine.getCtx().getHoldingPattern().isEmpty()) {
+            Aircraft aircraft = engine.getCtx().getHoldingPattern().peek();
+            engine.enqueueEvent(new LeaveHP(engine.getCurrentTime(), aircraft));
+            return;
+        }
+
+        // If no landing aircraft, try takeoff
+        if (!engine.getCtx().getTakeOffQueue().isEmpty()) {
+            Aircraft aircraft = engine.getCtx().getTakeOffQueue().peek();
+            engine.enqueueEvent(new AircraftTakeOff(aircraft, engine.getCurrentTime()));
+        }
     }
-    
 }

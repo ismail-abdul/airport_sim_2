@@ -88,4 +88,8 @@ public class HoldingPattern implements AircraftQueue {
         
         return callsigns;
     }
+ 
+    public Aircraft peek() {
+        return queue.peek();
+    }
 }
