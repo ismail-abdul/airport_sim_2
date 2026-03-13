@@ -49,9 +49,9 @@
                               </children>
                             </AnchorPane>
                             <AnchorPane id="topLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" >
-                              <text text="Selected Plane Details" />
-                              <text text="Flight No: " />
-                              <text text="Emergency: " />
+                              <Text text="Selected Plane Details" />
+                              <Text text="Flight No: " />
+                              <Text text="Emergency: " />
                               <RadioButton fx:id="technicalFault" styleClass="radioButtons" text="Technical Fault" toggleGroup="$emergencyToggleGroup" />
                               <RadioButton fx:id="lowFuel" styleClass="radioButtons" text="Low Fuel" toggleGroup="$emergencyToggleGroup" />
                               <RadioButton fx:id="customerEmergency" styleClass="radioButtons" text="Customer Emergency" toggleGroup="$emergencyToggleGroup" />
@@ -76,13 +76,13 @@
                                  </children>
                               </AnchorPane>
                               <AnchorPane id="bottomLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" >
-                                <text text="Selected Runway Details" />
-                                <text text="Runway No: " />
-                                <text text="Status: " />
+                                <Text text="Selected Runway Details" />
+                                <Text text="Runway No: " />
+                                <Text text="Status: " />
                                 <RadioButton fx:id="runwayOperational" styleClass="radioButtons" text="Operational" toggleGroup="$runwayEmergencyToggleGroup" />
                                 <RadioButton fx:id="runwayOutOfOrder" styleClass="radioButtons" text="Out of Order" toggleGroup="$runwayEmergencyToggleGroup" />
                                 <Button fx:id="submitRunwayOperational" text="Submit" onAction="#submitRunwayOperationalPressed"/>
-                                <text text="Runway Type: " />
+                                <Text text="Runway Type: " />
                                 <RadioButton fx:id="runwayTypeDeparture" styleClass="radioButtons" text="Departure" toggleGroup="$runwayTypeToggleGroup" />
                                 <RadioButton fx:id="runwayTypeArrival" styleClass="radioButtons" text="Arrival" toggleGroup="$runwayTypeToggleGroup" />
                                 <Button fx:id="submitRunwayType" text="Submit" onAction="#submitRunwayTypePressed"/>

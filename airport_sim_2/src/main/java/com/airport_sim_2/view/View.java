@@ -1,29 +1,31 @@
 package com.airport_sim_2.view;
 
+import com.airport_sim_2.model.TimeManager;
+import com.airport_sim_2.objects.Aircraft;
+import com.airport_sim_2.objects.Runway;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import com.airport_sim_2.model.TimeManager;
-import com.airport_sim_2.objects.Aircraft;
-import com.airport_sim_2.objects.Runway;
 
-public class View extends Application{
+public class View extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/com/airport_simulation/view/resources/graphics.fxml")));
-        scene.getStylesheets().add(getClass().getResource("/com/airport_simulation/view/resources/style.css").toExternalForm());
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/com/airport_sim_2/view/resources/graphics.fxml")));
+        scene.getStylesheets().add(getClass().getResource("/com/airport_sim_2/view/resources/style.css").toExternalForm());
         stage.setTitle("Airport Simulation");
         stage.setScene(scene);
         stage.show();
@@ -43,17 +45,17 @@ public class View extends Application{
 
     @FXML
     public void collapseButtonPressed(ActionEvent event) {
-        
+
         double targetPosition = open ? 1.0 : 0.75;
-        
+
         Timeline timeline = new Timeline(
-            new KeyFrame(
-                Duration.millis(200),
-                new KeyValue(
-                    middleAndRight.getDividers().get(0).positionProperty(),
-                    targetPosition
+                new KeyFrame(
+                        Duration.millis(200),
+                        new KeyValue(
+                                middleAndRight.getDividers().get(0).positionProperty(),
+                                targetPosition
+                        )
                 )
-            )
         );
         timeline.play();
 
@@ -132,8 +134,6 @@ public class View extends Application{
     @FXML
     private TableView<Runway> bottomLeftLeftTable;
 
-
-
     public void addRunway(Runway runway) {
         runwayData.add(runway);
     }
@@ -141,5 +141,5 @@ public class View extends Application{
     public void addMultipleRunways(Runway... runways) {
         runwayData.addAll(runways);
     }
-    
+
 }
