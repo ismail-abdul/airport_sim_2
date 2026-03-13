@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.airport_sim_2.ui.controllers.ResultsController"
+            styleClass="view-container">
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox spacing="20">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                
+                <!-- Summary Metrics -->
+                <VBox spacing="10">
+                    <Label text="Simulation Summary" styleClass="section-title"/>
+                    
+                    <GridPane hgap="15" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                        </columnConstraints>
+                        
+                        <VBox styleClass="metric-card, summary-card" GridPane.columnIndex="0">
+                            <Label text="Total Aircraft" styleClass="metric-label"/>
+                            <Label fx:id="totalAircraftLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card, summary-card" GridPane.columnIndex="1">
+                            <Label text="Avg Wait Time" styleClass="metric-label"/>
+                            <Label fx:id="avgWaitTimeLabel" text="0 min" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card, summary-card" GridPane.columnIndex="2">
+                            <Label text="Max Queue" styleClass="metric-label"/>
+                            <Label fx:id="maxQueueLengthLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card, summary-card" GridPane.columnIndex="3">
+                            <Label text="Diversions" styleClass="metric-label"/>
+                            <Label fx:id="diversionsCountLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card, summary-card" GridPane.columnIndex="4">
+                            <Label text="Cancellations" styleClass="metric-label"/>
+                            <Label fx:id="cancellationsCountLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card, summary-card" GridPane.columnIndex="5">
+                            <Label text="Runway Util." styleClass="metric-label"/>
+                            <Label fx:id="runwayUtilizationLabel" text="0%" styleClass="metric-value"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+                
+                <!-- Charts Section -->
+                <VBox spacing="15">
+                    <Label text="Performance Charts" styleClass="section-title"/>
+                    
+                    <!-- Queue Length Over Time -->
+                    <VBox styleClass="chart-container">
+                        <Label text="Queue Length Over Time" styleClass="chart-title"/>
+                        <Label text="Tracks the number of aircraft waiting in the holding pattern (arrivals) and the takeoff queue (departures) throughout the simulation. Spikes indicate periods of high congestion." styleClass="chart-description" wrapText="true"/>
+                        <LineChart fx:id="queueLengthChart" legendVisible="true" legendSide="BOTTOM" prefHeight="250">
+                            <xAxis>
+                                <NumberAxis label="Time (minutes)" side="BOTTOM"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Number of Aircraft" side="LEFT"/>
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+                    
+                    <!-- Delay Distribution and Throughput -->
+                    <HBox spacing="15">
+                        <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                            <Label text="Delay Distribution" styleClass="chart-title"/>
+                            <Label text="Histogram of aircraft wait times (arrivals and departures combined), split into equal-width bins. The dashed red curve shows the fitted normal distribution for comparison." styleClass="chart-description" wrapText="true"/>
+                            <BarChart fx:id="delayDistributionChart" legendVisible="true" legendSide="BOTTOM" prefHeight="250">
+                                <xAxis>
+                                    <CategoryAxis label="Delay Range (minutes)" side="BOTTOM"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Aircraft Count" side="LEFT"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+                        
+                        <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                            <Label text="Cumulative Throughput" styleClass="chart-title"/>
+                            <Label text="Running total of aircraft that have successfully landed (arrivals) and departed (departures) over time. A widening gap between the two lines indicates an imbalance between arrival and departure rates." styleClass="chart-description" wrapText="true"/>
+                            <LineChart fx:id="throughputChart" legendVisible="true" legendSide="BOTTOM" prefHeight="250">
+                                <xAxis>
+                                    <NumberAxis label="Time (minutes)" side="BOTTOM"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Total Aircraft" side="LEFT"/>
+                                </yAxis>
+                            </LineChart>
+                        </VBox>
+                    </HBox>
+                </VBox>
+                
+                <!-- Runway Performance Table -->
+                <VBox spacing="10">
+                    <Label text="Runway Performance" styleClass="section-title"/>
+                    <TableView fx:id="runwayPerformanceTable" prefHeight="200">
+                        <columns>
+                            <TableColumn fx:id="runwayNumberColumn" text="Runway" prefWidth="100"/>
+                            <TableColumn fx:id="runwayModeColumn" text="Mode" prefWidth="100"/>
+                            <TableColumn fx:id="totalOpsColumn" text="Total Operations" prefWidth="150"/>
+                            <TableColumn fx:id="utilizationColumn" text="Utilization %" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+                
+                <!-- Detailed Report -->
+                <VBox spacing="10">
+                    <Label text="Detailed Report" styleClass="section-title"/>
+                    <TextArea fx:id="detailedReportArea" editable="false" wrapText="true" 
+                              prefRowCount="15" styleClass="report-area"/>
+                </VBox>
+                
+                <!-- Action Buttons -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button fx:id="exportPdfButton" text="Export to PDF" 
+                            onAction="#handleExportPdf" styleClass="primary-button"/>
+                    <Button fx:id="exportCsvButton" text="Export to CSV" 
+                            onAction="#handleExportCsv" styleClass="primary-button"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="newSimulationButton" text="New Simulation" 
+                            onAction="#handleNewSimulation" styleClass="primary-button"/>
+                </HBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>

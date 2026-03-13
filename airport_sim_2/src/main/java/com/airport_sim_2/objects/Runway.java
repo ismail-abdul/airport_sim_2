@@ -13,7 +13,9 @@ public class Runway {
     private RunwayOperationalStatus status;
 
     /** Reference to whatever aircraft is currently using it? Null when unoccupied */
-    private Aircraft currentAircraft; 
+    private Aircraft currentAircraft;
+
+    private int operationCount = 0;
 
     public Runway(int id, RunwayOpMode mode, RunwayOperationalStatus status) {
         this.id = id;
@@ -52,6 +54,11 @@ public class Runway {
 
     public void occupy(Aircraft aircraft) {
         this.currentAircraft = aircraft;
+        this.operationCount++;
+    }
+
+    public int getOperationCount() {
+        return operationCount;
     }
 
     public void release() {

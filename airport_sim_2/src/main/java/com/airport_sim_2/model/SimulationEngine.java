@@ -6,11 +6,8 @@ import java.util.Random;
 import com.airport_sim_2.events.AircraftTakeOff;
 import com.airport_sim_2.events.EnterHP;
 import com.airport_sim_2.events.Event;
-import com.airport_sim_2.events.RunwayStatusChangeEvent;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.AircraftStatus;
-import com.airport_sim_2.objects.Runway;
-import com.airport_sim_2.objects.RunwayOperationalStatus;
 
 /**
  * Manages, creates and processes events 
@@ -28,6 +25,8 @@ public class SimulationEngine {
      */
     private double currentTime;
     private double endTime;
+    private volatile boolean paused = false;
+    private volatile boolean stopped = false;
     
     public SimulationEngine(double endTime, SimulationContext ctx) {
         this.eventQueue = new PriorityQueue<>();
@@ -61,7 +60,6 @@ public class SimulationEngine {
         for (int i = 0; i < 2; i++) {
             Aircraft aircraft = genNewAircraft(timestamp);
             EnterHP event = new EnterHP(timestamp, aircraft);
-            ctx.getHoldingPattern().enqueue(aircraft);
             eventQueue.add(event);
             timestamp += 5*60;
         }
@@ -74,17 +72,10 @@ public class SimulationEngine {
         //     eventQueue.add(event);
         // }
         
-        // Seed the event queue with takeoffs.
-        timestamp = currentTime;
-        for (int i = 0; i < 5; i++) {
-            // event can be generated annd timestamps during actaul operation of the simulation
-            Aircraft aircraft = genNewAircraft(timestamp);
-            ctx.getTakeOffQueue().enqueue(aircraft);
-            // uniform probability of failure of some kind. Implement failure handling once the basics work.
-            AircraftTakeOff event = new AircraftTakeOff(aircraft, timestamp);
-            eventQueue.add(event);
-            timestamp += 5*60;
-        }
+        // Seed the event queue with one initial departure to start the Poisson chain.
+        Aircraft firstDeparture = genNewAircraft(currentTime);
+        ctx.getTakeOffQueue().enqueue(firstDeparture);
+        eventQueue.add(new AircraftTakeOff(firstDeparture, currentTime));
 
         for (int i = 0; i < 5; i++) {
 
@@ -107,12 +98,24 @@ public class SimulationEngine {
             if (currentTime > endTime) {
                 break;
             }
-            // Process the event 
+            // Process the event
             event.processEvent(this);
             System.out.println("Event queue before processing");
             printEventQueue();
+
+            // Pace the simulation and support pause/stop
+            try {
+                while (paused && !stopped) {
+                    Thread.sleep(50);
+                }
+                if (stopped) break;
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
         }
-        
+
         System.out.println("Simulation ended at time: " + currentTime);
     }
     /**
@@ -161,6 +164,14 @@ public class SimulationEngine {
 
     public double getEndTime() {
         return endTime;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
+    public void setStop() {
+        this.stopped = true;
     }
 
 }

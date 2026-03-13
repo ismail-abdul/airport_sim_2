@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.airport_sim_2.ui.controllers.SimulationViewController"
+            styleClass="view-container">
+    
+    <top>
+        <!-- Control Panel -->
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="control-panel">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Button fx:id="playButton" text="▶ Play" onAction="#handlePlay" 
+                    styleClass="control-button"/>
+            <Button fx:id="pauseButton" text="⏸ Pause" onAction="#handlePause" 
+                    styleClass="control-button"/>
+            <Button fx:id="stopButton" text="⏹ Stop" onAction="#handleStop" 
+                    styleClass="control-button, danger-button"/>
+            
+            <Separator orientation="VERTICAL"/>
+            
+            <Label text="Status:"/>
+            <Label fx:id="statusIndicator" text="IDLE" styleClass="status-badge"/>
+            
+            <Separator orientation="VERTICAL"/>
+            
+            <Label text="Elapsed Time:"/>
+            <Label fx:id="elapsedTimeLabel" text="00:00:00" styleClass="time-display"/>
+        </HBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox spacing="20">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                
+                <!-- Metrics Dashboard -->
+                <VBox spacing="10">
+                    <Label text="Real-Time Metrics" styleClass="section-title"/>
+                    
+                    <GridPane hgap="15" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                            <ColumnConstraints percentWidth="16.6"/>
+                        </columnConstraints>
+                        
+                        <!-- Metric Cards -->
+                        <VBox styleClass="metric-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Total Arrived" styleClass="metric-label"/>
+                            <Label fx:id="totalArrivedLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Total Departed" styleClass="metric-label"/>
+                            <Label fx:id="totalDepartedLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                            <Label text="Diversions" styleClass="metric-label"/>
+                            <Label fx:id="diversionsLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                            <Label text="Cancellations" styleClass="metric-label"/>
+                            <Label fx:id="cancellationsLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card" GridPane.columnIndex="4" GridPane.rowIndex="0">
+                            <Label text="Holding Queue" styleClass="metric-label"/>
+                            <Label fx:id="holdingQueueSizeLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                        
+                        <VBox styleClass="metric-card" GridPane.columnIndex="5" GridPane.rowIndex="0">
+                            <Label text="Takeoff Queue" styleClass="metric-label"/>
+                            <Label fx:id="takeoffQueueSizeLabel" text="0" styleClass="metric-value"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+                
+                <!-- Aircraft Queues -->
+                <HBox spacing="15" VBox.vgrow="ALWAYS">
+                    <!-- Holding Pattern Queue -->
+                    <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="Holding Pattern Queue" styleClass="section-title"/>
+                        <TableView fx:id="holdingPatternTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="hpCallsignColumn" text="Callsign" prefWidth="100"/>
+                                <TableColumn fx:id="hpOperatorColumn" text="Operator" prefWidth="100"/>
+                                <TableColumn fx:id="hpAltitudeColumn" text="Altitude" prefWidth="80"/>
+                                <TableColumn fx:id="hpFuelColumn" text="Fuel" prefWidth="80"/>
+                                <TableColumn fx:id="hpStatusColumn" text="Status" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                    
+                    <!-- Takeoff Queue -->
+                    <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="Takeoff Queue" styleClass="section-title"/>
+                        <TableView fx:id="takeoffQueueTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="toPositionColumn" text="Pos" prefWidth="50"/>
+                                <TableColumn fx:id="toCallsignColumn" text="Callsign" prefWidth="100"/>
+                                <TableColumn fx:id="toOperatorColumn" text="Operator" prefWidth="120"/>
+                                <TableColumn fx:id="toFuelColumn" text="Fuel" prefWidth="80"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </HBox>
+                
+                <!-- Simulation Log -->
+                <VBox spacing="10">
+                    <Label text="Simulation Log" styleClass="section-title"/>
+                    <TextArea fx:id="simulationLog" editable="false" wrapText="true" 
+                              prefRowCount="8" styleClass="log-area"/>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>

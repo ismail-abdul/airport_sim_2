@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(sed -i 's/^package com\\\\.airport_sim_2\\\\.ui\\\\.\\\\\\(.*\\\\\\);$/package com.airport_sim_2.\\\\1;/' \"$f\")",
+      "Bash(echo \"Fixed: $f\")",
+      "Bash(done)",
+      "Bash(mvn javafx:run)",
+      "Bash(mvn compile:*)",
+      "Bash(grep -n \"new.*Event\\\\|new.*Landing\\\\|new.*RunwayFreeEvent\" /c/Users/Abdul/Downloads/javafx-frontend/javafx-frontend/src/main/java/com/airport_sim_2/events/*.java)"
+    ]
+  }
+}

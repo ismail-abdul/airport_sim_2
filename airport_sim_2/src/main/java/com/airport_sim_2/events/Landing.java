@@ -55,27 +55,25 @@ public class Landing extends AbstractEvent   {
     // Handle landing with greed.
     @Override
     public void processEvent(SimulationEngine engine) {
-        // If wait time is exceeded, schedule a diversion
+        // If wait time is exceeded, divert the aircraft.
         if (this.eventTime - aircraft.getScheduledTime() >= engine.getCtx().getMaxWaitTime()) {
-            Diversion event = new Diversion(this.eventTime, this.aircraft);
-            engine.enqueueEvent(event);
-            // record diversion in timeseries
+            engine.getCtx().getHoldingPattern().remove(aircraft);
+
             StatisticsCollector stats = engine.getCtx().getStatistics();
-            int div_count = stats.getDivertedCount();
-            TimeSeriesPoint p = new TimeSeriesPoint(eventTime, div_count+1);
             stats.incrementDiverted();
+            stats.diversion_ts_add(new TimeSeriesPoint(eventTime, stats.getDivertedCount()));
             return;
         }
 
         Runway runway = engine.getCtx().getLandingRunway();
         if (runway != null) {
-            // occupy runway, scheduled it's freeing, more forward time
+            // occupy runway, schedule its freeing, move forward time
             assert runway.isAvailableForLanding();
             this.aircraft.setActualTime(engine.getCurrentTime());
             runway.occupy(this.aircraft);
             RunwayFreeEvent event = new RunwayFreeEvent(
                 this.eventTime + engine.getCtx().getLandingDuration(),
-                runway.getId()  
+                runway.getId()
             );
             engine.enqueueEvent(event);
 
@@ -85,10 +83,11 @@ public class Landing extends AbstractEvent   {
             int runway_id = -1;
             for (Runway r : engine.getCtx().getRunways()) {
                 Aircraft currentAircraft = r.getCurrentAircraft();
-                if (currentAircraft == null) 
+                if (currentAircraft == null)
                     continue;
+                // change from scheduled time to current engine time
                 double freeTime =
-                    currentAircraft.getScheduledTime() +
+                    engine.getCurrentTime() +
                     engine.getCtx().getLandingDuration();
 
                 if (freeTime < earliestTime) {
@@ -96,10 +95,12 @@ public class Landing extends AbstractEvent   {
                     runway_id = r.getId();
                 }
             }
-    
+
             // pre-emptively reschedule the landing event
-            Landing retry = new Landing(earliestTime, this.aircraft, runway_id);
-            engine.enqueueEvent(retry);
+            if (earliestTime <= engine.getEndTime()) {
+                Landing retry = new Landing(earliestTime, this.aircraft, runway_id);
+                engine.enqueueEvent(retry);
+            }
         }
 
     }

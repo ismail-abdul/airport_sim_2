@@ -92,4 +92,8 @@ public class HoldingPattern implements AircraftQueue {
     public Aircraft peek() {
         return queue.peek();
     }
+
+    public PriorityQueue<Aircraft> getQueue() {
+        return queue;
+    }
 }

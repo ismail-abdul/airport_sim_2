@@ -1,0 +1,467 @@
+/* =================================================================
+   AIRPORT SIMULATION SYSTEM - STYLESHEET
+   Based on Design Specification Color Palette
+   ================================================================= */
+
+/* Root Variables - Color Palette */
+.root {
+    /* Primary Colors */
+    -fx-color-blue: #3B82F6;
+    -fx-color-green: #10B981;
+    -fx-color-red: #EF4444;
+    -fx-color-amber: #F59E0B;
+    -fx-color-purple: #8B5CF6;
+    
+    /* Neutral Colors */
+    -fx-color-slate-900: #0F172A;
+    -fx-color-slate-700: #334155;
+    -fx-color-slate-500: #64748B;
+    -fx-color-slate-200: #E2E8F0;
+    -fx-color-slate-50: #F8FAFC;
+    
+    /* System Font */
+    -fx-font-family: "System", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-color-slate-900;
+    -fx-background-color: white;
+}
+
+/* =================================================================
+   LAYOUT COMPONENTS
+   ================================================================= */
+
+.header {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-color-slate-900;
+}
+
+.status-bar {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1 0 0 0;
+}
+
+.status-text {
+    -fx-text-fill: -fx-color-slate-700;
+    -fx-font-weight: 600;
+}
+
+/* =================================================================
+   TABS
+   ================================================================= */
+
+.main-tab-pane {
+    -fx-tab-min-height: 40px;
+}
+
+.main-tab-pane .tab {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-border-color: -fx-color-slate-200;
+}
+
+.main-tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-border-color: -fx-color-blue;
+    -fx-border-width: 0 0 3 0;
+}
+
+.main-tab-pane .tab-label {
+    -fx-text-fill: -fx-color-slate-700;
+    -fx-font-size: 14px;
+}
+
+.main-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: -fx-color-blue;
+    -fx-font-weight: 600;
+}
+
+/* =================================================================
+   VIEWS
+   ================================================================= */
+
+.view-container {
+    -fx-background-color: white;
+}
+
+.config-section {
+    -fx-background-color: white;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 20;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-color-slate-900;
+}
+
+.section-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-color-slate-500;
+}
+
+/* =================================================================
+   BUTTONS
+   ================================================================= */
+
+.button {
+    -fx-background-color: white;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-text-fill: -fx-color-slate-700;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-border-color: -fx-color-slate-200;
+}
+
+.primary-button {
+    -fx-background-color: -fx-color-blue;
+    -fx-border-color: -fx-color-blue;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+}
+
+.primary-button:hover {
+    -fx-background-color: #2563EB;
+    -fx-border-color: #2563EB;
+}
+
+.danger-button {
+    -fx-background-color: -fx-color-red;
+    -fx-border-color: -fx-color-red;
+    -fx-text-fill: white;
+}
+
+.danger-button:hover {
+    -fx-background-color: #DC2626;
+    -fx-border-color: #DC2626;
+}
+
+.large-button {
+    -fx-padding: 12 24;
+    -fx-font-size: 16px;
+}
+
+.control-button {
+    -fx-min-width: 90px;
+}
+
+/* =================================================================
+   METRIC CARDS
+   ================================================================= */
+
+.metric-card {
+    -fx-background-color: white;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 16;
+    -fx-spacing: 8;
+}
+
+.summary-card {
+    -fx-background-color: -fx-color-slate-50;
+}
+
+.metric-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-color-slate-500;
+    -fx-font-weight: 600;
+    -fx-text-transform: uppercase;
+}
+
+.metric-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-color-slate-900;
+}
+
+/* =================================================================
+   STATUS INDICATORS
+   ================================================================= */
+
+.status-badge {
+    -fx-padding: 4 12;
+    -fx-background-radius: 12;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+}
+
+.status-running {
+    -fx-background-color: -fx-color-green;
+    -fx-text-fill: white;
+}
+
+.status-paused {
+    -fx-background-color: -fx-color-amber;
+    -fx-text-fill: white;
+}
+
+.status-completed {
+    -fx-background-color: -fx-color-blue;
+    -fx-text-fill: white;
+}
+
+.status-stopped {
+    -fx-background-color: -fx-color-red;
+    -fx-text-fill: white;
+}
+
+.time-display {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-color-slate-900;
+    -fx-font-family: "Courier New", monospace;
+}
+
+/* =================================================================
+   TABLES
+   ================================================================= */
+
+.table-view {
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-text-fill: -fx-color-slate-700;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell {
+    -fx-text-fill: -fx-color-slate-900;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: white;
+}
+
+.table-row-cell:even {
+    -fx-background-color: -fx-color-slate-50;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #DBEAFE;
+    -fx-text-fill: -fx-color-slate-900;
+}
+
+/* Emergency/Low Fuel Highlighting */
+.emergency-row {
+    -fx-background-color: #FEE2E2;
+}
+
+.low-fuel {
+    -fx-text-fill: -fx-color-red;
+    -fx-font-weight: bold;
+}
+
+/* =================================================================
+   FORMS
+   ================================================================= */
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-text-fill: -fx-color-slate-900;
+}
+
+.text-field:focused {
+    -fx-border-color: -fx-color-blue;
+    -fx-border-width: 2;
+}
+
+.label {
+    -fx-text-fill: -fx-color-slate-700;
+}
+
+.validation-error {
+    -fx-text-fill: -fx-color-red;
+    -fx-font-weight: 600;
+}
+
+.help-text {
+    -fx-text-fill: -fx-color-slate-500;
+    -fx-font-size: 13px;
+}
+
+/* =================================================================
+   TEXT AREAS
+   ================================================================= */
+
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.text-area .content {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-padding: 12;
+}
+
+.log-area .content {
+    -fx-background-color: #1E293B;
+    -fx-text-fill: #F1F5F9;
+    -fx-font-family: "Consolas", "Monaco", "Courier New", monospace;
+    -fx-font-size: 12px;
+}
+
+.report-area .content {
+    -fx-background-color: white;
+    -fx-text-fill: -fx-color-slate-900;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 12px;
+}
+
+/* =================================================================
+   CHARTS
+   ================================================================= */
+
+.chart-container {
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-background-color: white;
+}
+
+.chart-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -fx-color-slate-700;
+    -fx-padding: 0 0 4 0;
+}
+
+.chart-description {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-color-slate-500;
+    -fx-padding: 0 0 8 0;
+}
+
+.chart {
+    -fx-background-color: white;
+}
+
+.chart-plot-background {
+    -fx-background-color: white;
+}
+
+.chart-legend {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8;
+}
+
+/* Chart Series Colors */
+.default-color0.chart-series-line { -fx-stroke: -fx-color-blue; }
+.default-color0.chart-line-symbol { -fx-background-color: -fx-color-blue; }
+.default-color0.chart-bar { -fx-bar-fill: -fx-color-blue; }
+
+.default-color1.chart-series-line { -fx-stroke: -fx-color-green; }
+.default-color1.chart-line-symbol { -fx-background-color: -fx-color-green; }
+.default-color1.chart-bar { -fx-bar-fill: -fx-color-green; }
+
+.default-color2.chart-series-line { -fx-stroke: -fx-color-amber; }
+.default-color2.chart-line-symbol { -fx-background-color: -fx-color-amber; }
+.default-color2.chart-bar { -fx-bar-fill: -fx-color-amber; }
+
+/* =================================================================
+   CONTROL PANEL
+   ================================================================= */
+
+.control-panel {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* =================================================================
+   SCROLLPANE
+   ================================================================= */
+
+.scroll-pane {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: white;
+}
+
+/* =================================================================
+   COMBO BOX
+   ================================================================= */
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.combo-box:focused {
+    -fx-border-color: -fx-color-blue;
+    -fx-border-width: 2;
+}
+
+/* =================================================================
+   SEPARATOR
+   ================================================================= */
+
+.separator {
+    -fx-background-color: -fx-color-slate-200;
+}
+
+/* =================================================================
+   MENU
+   ================================================================= */
+
+.menu-bar {
+    -fx-background-color: -fx-color-slate-50;
+    -fx-border-color: -fx-color-slate-200;
+    -fx-border-width: 0 0 1 0;
+}
+
+.menu {
+    -fx-text-fill: -fx-color-slate-700;
+}
+
+.menu-item {
+    -fx-text-fill: -fx-color-slate-900;
+}
+
+.menu-item:focused {
+    -fx-background-color: -fx-color-slate-50;
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.airport_sim_2.ui.controllers.ConfigurationController"
+            styleClass="view-container">
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox spacing="20">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                
+                <!-- Runway Configuration Section -->
+                <VBox spacing="10" styleClass="config-section">
+                    <Label text="Runway Configuration" styleClass="section-title"/>
+                    <Label text="Configure up to 10 runways with their operational parameters" 
+                           styleClass="section-subtitle"/>
+                    
+                    <TableView fx:id="runwayTable" prefHeight="250">
+                        <columns>
+                            <TableColumn fx:id="numberColumn" text="Runway Number" prefWidth="120"/>
+                            <TableColumn fx:id="modeColumn" text="Mode" prefWidth="100"/>
+                            <TableColumn fx:id="statusColumn" text="Status" prefWidth="150"/>
+                            <TableColumn fx:id="lengthColumn" text="Length (m)" prefWidth="100"/>
+                            <TableColumn fx:id="bearingColumn" text="Bearing (°)" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                    
+                    <HBox spacing="10">
+                        <Button fx:id="addRunwayButton" text="Add Runway" 
+                                onAction="#handleAddRunway" styleClass="primary-button"/>
+                        <Button fx:id="removeRunwayButton" text="Remove Runway" 
+                                onAction="#handleRemoveRunway"/>
+                    </HBox>
+                </VBox>
+                
+                <!-- Traffic Flow Parameters Section -->
+                <VBox spacing="10" styleClass="config-section">
+                    <Label text="Traffic Flow Parameters" styleClass="section-title"/>
+                    <Label text="Set aircraft arrival and departure rates" 
+                           styleClass="section-subtitle"/>
+                    
+                    <GridPane hgap="15" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="30"/>
+                            <ColumnConstraints percentWidth="70"/>
+                        </columnConstraints>
+                        
+                        <Label text="Inbound Rate (aircraft/hour):" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="inboundRateField" promptText="15" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        
+                        <Label text="Outbound Rate (aircraft/hour):" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <TextField fx:id="outboundRateField" promptText="15" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        
+                        <Label text="Simulation Duration (minutes):" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <TextField fx:id="durationField" promptText="120" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    </GridPane>
+                </VBox>
+                
+                <!-- Validation and Actions -->
+                <VBox spacing="10">
+                    <Label fx:id="validationLabel" styleClass="validation-error"/>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button fx:id="startSimulationButton" text="Start Simulation" 
+                                onAction="#handleStartSimulation" 
+                                styleClass="primary-button, large-button"/>
+                        <Label text="Configure your simulation parameters and click Start Simulation" 
+                               styleClass="help-text"/>
+                    </HBox>
+                </VBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>

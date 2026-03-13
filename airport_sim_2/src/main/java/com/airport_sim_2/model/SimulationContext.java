@@ -25,7 +25,7 @@ public class SimulationContext {
     private final long takeOffDuration = 15;
     //fuel used per minute
     private final long fuel_consumption_rate = 20;
-    // max wait time for departing aircraft
+    // max wait time for departing aircraft. should be user configurable in future.
     private final long max_wait_time = 30;
     private double current_time = 0;
 

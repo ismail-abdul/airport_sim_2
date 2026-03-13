@@ -47,6 +47,7 @@ public class RunwayTakeOff extends RunwayEvent {
         
         // Schedule a runway free event for after the takeoff is finsihed.
         RunwayFreeEvent event = new RunwayFreeEvent(eventTime + ctx.getTakeOffDuration(), runwayId);
+        engine.enqueueEvent(event);
     }
     
 }

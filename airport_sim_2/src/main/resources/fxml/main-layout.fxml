@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.airport_sim_2.ui.controllers.MainController">
+    
+    <!-- Top: Menu Bar and Title -->
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem text="New Simulation" onAction="#resetSimulation"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Exit"/>
+                </Menu>
+                <Menu text="Help">
+                    <MenuItem text="About"/>
+                    <MenuItem text="Documentation"/>
+                </Menu>
+            </MenuBar>
+            
+            <HBox alignment="CENTER_LEFT" styleClass="header" spacing="10">
+    <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                <Label text="Airport Simulation System" styleClass="app-title"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <!-- Center: Tab Pane with Main Views -->
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" styleClass="main-tab-pane">
+            <Tab fx:id="configTab" text="Configuration">
+                <graphic>
+                    <HBox spacing="5" alignment="CENTER">
+                        <Label text="⚙"/>
+                        <Label text="Configuration"/>
+                    </HBox>
+                </graphic>
+            </Tab>
+            
+            <Tab fx:id="simulationTab" text="Simulation">
+                <graphic>
+                    <HBox spacing="5" alignment="CENTER">
+                        <Label text="✈"/>
+                        <Label text="Simulation"/>
+                    </HBox>
+                </graphic>
+            </Tab>
+            
+            <Tab fx:id="resultsTab" text="Results &amp; Analysis">
+                <graphic>
+                    <HBox spacing="5" alignment="CENTER">
+                        <Label text="📊"/>
+                        <Label text="Results"/>
+                    </HBox>
+                </graphic>
+            </Tab>
+        </TabPane>
+    </center>
+    
+    <!-- Bottom: Status Bar -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="status-bar" spacing="10">
+    <padding><Insets top="8" right="12" bottom="8" left="12"/></padding>
+            <Label text="Status:"/>
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-text"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Airport Simulation v1.0"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>

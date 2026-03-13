@@ -77,4 +77,12 @@ public class TakeOffQueue implements AircraftQueue {
         return queue.peek();
     }
 
+    public boolean contains(Aircraft aircraft) {
+        return queue.contains(aircraft);
+    }
+
+    public Iterable<Aircraft> getQueue() {
+        return queue;
+    }
+
 }

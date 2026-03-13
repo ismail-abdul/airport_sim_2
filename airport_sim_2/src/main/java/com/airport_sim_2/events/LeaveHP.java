@@ -1,9 +1,9 @@
 package com.airport_sim_2.events;
 import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
+import com.airport_sim_2.model.SimulationEngine;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
-import com.airport_sim_2.model.SimulationEngine;
 
 // This events is dispatched to the UI
 public class LeaveHP extends AbstractEvent {
@@ -51,15 +51,18 @@ public class LeaveHP extends AbstractEvent {
                     continue;
                 }  
     
-                double freeTime = currentAircraft.getScheduledTime() + engine.getCtx().getLandingDuration();
+                // changed from scheduled aircraft time to current engine time
+                double freeTime = engine.getCurrentTime() + engine.getCtx().getLandingDuration();
     
                 if (freeTime < earliestTime) {
                     earliestTime = freeTime;
                 }
             }
     
-            LeaveHP retry = new LeaveHP(earliestTime, aircraft);
-            engine.enqueueEvent(retry);
+            if (earliestTime <= engine.getEndTime()) {
+                LeaveHP retry = new LeaveHP(earliestTime, aircraft);
+                engine.enqueueEvent(retry);
+            }
             return;
         }
     
@@ -69,10 +72,15 @@ public class LeaveHP extends AbstractEvent {
         // occupy runway
         runway.occupy(aircraft);
     
-        // Record wait time
+        // Record wait time and arrival
         double waitMinutes = (engine.getCurrentTime() - aircraft.getScheduledTime()) / 60.0;
-    
         engine.getCtx().getStatistics().recordArrivalWait(waitMinutes);
+        engine.getCtx().getStatistics().incrementArrived();
+        engine.getCtx().getStatistics().arrival_ts_add(
+            new com.airport_sim_2.controller.TimeSeriesPoint(
+                engine.getCurrentTime(), engine.getCtx().getStatistics().getArrivedCount()
+            )
+        );
     
         // Schedule runway release
         RunwayFreeEvent releaseEvent = new RunwayFreeEvent(engine.getCurrentTime() + engine.getCtx().getLandingDuration(), runway.getId());

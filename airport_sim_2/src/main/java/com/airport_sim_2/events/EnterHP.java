@@ -34,6 +34,9 @@ public class EnterHP extends AbstractEvent {
 
         // update statistics
         engine.getCtx().getStatistics().updateMaxHoldingSize(hp.size());
+        engine.getCtx().getStatistics().hp_ts_add(
+            new com.airport_sim_2.controller.TimeSeriesPoint(engine.getCurrentTime(), hp.size())
+        );
 
         // check if a runway is available for landing
         int runwayId = engine.getCtx().findAvailableLandingRunway();
@@ -42,14 +45,17 @@ public class EnterHP extends AbstractEvent {
             engine.enqueueEvent(landing);
         }
 
-        // Random random = new Random();
-        // double lambda = 15.0 / 60.0;
-        // double interArrivalTime = -Math.log(1.0 - random.nextDouble()) / lambda;
-        // double nextTime = engine.getCurrentTime() + interArrivalTime;
-        // if (nextTime <= engine.getEndTime()) {
-        //     Aircraft nextAircraft = SimulationEngine.genNewAircraft(nextTime);
-        //     EnterHP event = new EnterHP(nextTime, nextAircraft);
-        //     engine.enqueueEvent(event);
-        // }
+        // Schedule the next arrival using a Poisson process (1 aircraft per simulated minute)
+        java.util.Random random = new java.util.Random();
+        double lambda = 1.0 / 60.0; // 1 arrival per 60 seconds
+        double interArrivalTime = -Math.log(1.0 - random.nextDouble()) / lambda;
+        double targetTime = engine.getCurrentTime() + interArrivalTime;
+        double jitter = random.nextGaussian() * (5 * 60);
+        double nextTime = Math.max(engine.getCurrentTime() + 1, targetTime + jitter);
+        if (nextTime <= engine.getEndTime()) {
+            Aircraft nextAircraft = SimulationEngine.genNewAircraft(nextTime);
+            EnterHP event = new EnterHP(nextTime, nextAircraft);
+            engine.enqueueEvent(event);
+        }
     }
 }
