@@ -1,7 +1,5 @@
 package com.airport_sim_2.events;
 
-import java.util.List;
-
 import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.model.SimulationEngine;
@@ -52,7 +50,7 @@ public class RunwayFreeEvent extends RunwayEvent {
     public void processEvent(SimulationEngine engine) {
         Runway runway = engine.getCtx().getRunway(runwayId);
         if (runway == null) {
-        throw new IllegalStateException("Runway " + runwayId + " does not exist.");
+            throw new IllegalStateException("Runway " + runwayId + " does not exist.");
         }
 
         // Free the runway
@@ -61,10 +59,9 @@ public class RunwayFreeEvent extends RunwayEvent {
         // Landing has priority over takeoff
         if (!engine.getCtx().getHoldingPattern().isEmpty()) {
             Aircraft aircraft = engine.getCtx().getHoldingPattern().peek();
-            engine.enqueueEvent(new LeaveHP(engine.getCurrentTime(), aircraft)
-        );
-        return;
-    }
+            engine.enqueueEvent(new LeaveHP(engine.getCurrentTime(), aircraft));
+            return;
+        }
 
         // If no landing aircraft, try takeoff
         if (!engine.getCtx().getTakeOffQueue().isEmpty()) {

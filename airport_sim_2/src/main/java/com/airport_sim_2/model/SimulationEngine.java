@@ -76,15 +76,15 @@ public class SimulationEngine {
         
         // Seed the event queue with takeoffs.
         timestamp = currentTime;
-        // for (int i = 0; i < 5; i++) {
-        //     // event can be generated annd timestamps during actaul operation of the simulation
-        //     Aircraft aircraft = genNewAircraft(timestamp);
-        //     ctx.getTakeOffQueue().enqueue(aircraft);
-        //     // uniform probability of failure of some kind. Implement failure handling once the basics work.
-        //     AircraftTakeOff event = new AircraftTakeOff(aircraft, timestamp);
-        //     eventQueue.add(event);
-        //     timestamp += 5*60;
-        // }
+        for (int i = 0; i < 5; i++) {
+            // event can be generated annd timestamps during actaul operation of the simulation
+            Aircraft aircraft = genNewAircraft(timestamp);
+            ctx.getTakeOffQueue().enqueue(aircraft);
+            // uniform probability of failure of some kind. Implement failure handling once the basics work.
+            AircraftTakeOff event = new AircraftTakeOff(aircraft, timestamp);
+            eventQueue.add(event);
+            timestamp += 5*60;
+        }
 
         for (int i = 0; i < 5; i++) {
 

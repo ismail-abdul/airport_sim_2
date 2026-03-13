@@ -1,7 +1,5 @@
 package com.airport_sim_2.events;
 
-import java.util.Random;
-
 import com.airport_sim_2.model.EventType;
 import com.airport_sim_2.model.SimulationContext;
 import com.airport_sim_2.model.SimulationEngine;
@@ -44,9 +42,9 @@ public class EnterHP extends AbstractEvent {
             engine.enqueueEvent(landing);
         }
 
-        Random random = new Random();
-        double interArrivalTime = -Math.log(1 - random.nextDouble()) / (15/60);
-        EnterHP event = new EnterHP(engine.getCurrentTime() + interArrivalTime, aircraft);
+        // Random random = new Random();
+        // double interArrivalTime = -Math.log(1 - random.nextDouble()) / (15/60);
+        EnterHP event = new EnterHP(engine.getCurrentTime() + 5*60, aircraft);
         engine.enqueueEvent(event);
     }
 }
