@@ -16,16 +16,16 @@
         <items>
             <ButtonBar id="leftButtons" prefHeight="40.0" prefWidth="45.0">
               <buttons>
-                <Button id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" styleClass="leftButtons" stylesheets="@style.css" text="Start New Simulation" textAlignment="CENTER" />
-                  <Button id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" styleClass="leftButtons" stylesheets="@style.css" text="Get Simulation Data" textAlignment="CENTER" />
+                <Button styleClass="leftButtons" fx:id="startNew" alignment="TOP_LEFT" mnemonicParsing="false" text="Start New Simulation" textAlignment="CENTER" />
+                  <Button styleClass="leftButtons" fx:id="getData" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" text="Get Simulation Data" textAlignment="CENTER" />
               </buttons>
             </ButtonBar>
             <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0" stylesheets="@style.css">
               <buttons>
-                  <Button id="stop" mnemonicParsing="false" styleClass="toolBarButtons" text="⏹" />
-                  <Button id="pause" mnemonicParsing="false" styleClass="toolBarButtons" text="⏸" />
-                  <Button id="play" mnemonicParsing="false" styleClass="toolBarButtons" text="▶" />
-                  <Button id="fastForward" mnemonicParsing="false" styleClass="toolBarButtons" text="⏭" />
+                  <Button styleClass="toolBarButtons" fx:id="stop" onAction="#stopPressed" mnemonicParsing="false" text="⏹" />
+                  <Button styleClass="toolBarButtons" fx:id="pause" onAction="#pausePressed" mnemonicParsing="false" text="⏸" />
+                  <Button styleClass="toolBarButtons" fx:id="play" onAction="#playPressed" mnemonicParsing="false" text="▶" />
+                  <Button styleClass="toolBarButtons" fx:id="fastForward" onAction="#fastForwardPressed" mnemonicParsing="false" text="⏭" />
               </buttons>
             </ButtonBar>
             <Text id="date" strokeType="OUTSIDE" strokeWidth="0.0" text="Date/Time" />
@@ -40,15 +40,24 @@
                         <SplitPane id="topLeftPanelSplit" dividerPositions="0.5" prefHeight="349.0" prefWidth="200.0">
                           <items>
                             <AnchorPane id="topLeftLeft" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="96.0">
-                                 <children>
-                                    <TableView id="topLeftLeftTable" prefHeight="168.0" prefWidth="96.0">
-                                      <columns>
-                                        <TableColumn minWidth="9.0" prefWidth="95.0" text="All Planes" />
-                                      </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane id="topLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" />
+                              <children>
+                                <TableView fx:id="topLeftLeftTable" prefHeight="168.0" prefWidth="96.0">
+                                  <columns>
+                                    <TableColumn minWidth="9.0" prefWidth="95.0" text="All Planes" />
+                                  </columns>
+                                </TableView>
+                              </children>
+                            </AnchorPane>
+                            <AnchorPane id="topLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" >
+                              <text text="Selected Plane Details" />
+                              <text text="Flight No: " />
+                              <text text="Emergency: " />
+                              <RadioButton fx:id="technicalFault" styleClass="radioButtons" text="Technical Fault" toggleGroup="$emergencyToggleGroup" />
+                              <RadioButton fx:id="lowFuel" styleClass="radioButtons" text="Low Fuel" toggleGroup="$emergencyToggleGroup" />
+                              <RadioButton fx:id="customerEmergency" styleClass="radioButtons" text="Customer Emergency" toggleGroup="$emergencyToggleGroup" />
+                              <RadioButton fx:id="none" styleClass="radioButtons" text="None" toggleGroup="$emergencyToggleGroup" />
+                              <Button fx:id="submitEmergency" text="Submit" onAction="#submitEmergencyPressed"/>
+                            </AnchorPane>
                           </items>
                         </SplitPane>
                      </children>
@@ -66,7 +75,18 @@
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane id="bottomLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" />
+                              <AnchorPane id="bottomLeftRight" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="95.0" >
+                                <text text="Selected Runway Details" />
+                                <text text="Runway No: " />
+                                <text text="Status: " />
+                                <RadioButton fx:id="runwayOperational" styleClass="radioButtons" text="Operational" toggleGroup="$runwayEmergencyToggleGroup" />
+                                <RadioButton fx:id="runwayOutOfOrder" styleClass="radioButtons" text="Out of Order" toggleGroup="$runwayEmergencyToggleGroup" />
+                                <Button fx:id="submitRunwayOperational" text="Submit" onAction="#submitRunwayOperationalPressed"/>
+                                <text text="Runway Type: " />
+                                <RadioButton fx:id="runwayTypeDeparture" styleClass="radioButtons" text="Departure" toggleGroup="$runwayTypeToggleGroup" />
+                                <RadioButton fx:id="runwayTypeArrival" styleClass="radioButtons" text="Arrival" toggleGroup="$runwayTypeToggleGroup" />
+                                <Button fx:id="submitRunwayType" text="Submit" onAction="#submitRunwayTypePressed"/>
+                              </AnchorPane>
                            </items>
                         </SplitPane>
                      </children>
