@@ -12,7 +12,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.airport_sim_2.view.View">
   <children>
-      <ToolBar id="topBar" prefHeight="40.0" prefWidth="200.0">
+      <ToolBar id="topBar" prefHeight="40.0" prefWidth="200.0" stylesheets="@style.css">
         <items>
             <ButtonBar id="leftButtons" prefHeight="40.0" prefWidth="45.0">
               <buttons>
@@ -20,7 +20,7 @@
                 <Button styleClass="leftButtons" fx:id="getData" mnemonicParsing="false" text="Get Data" wrapText="true" />
               </buttons>
             </ButtonBar>
-            <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar id="middleButtons" prefHeight="40.0" prefWidth="200.0" stylesheets="@style.css">
               <buttons>
                   <Button styleClass="toolBarButtons" fx:id="stop" onAction="#stopPressed" mnemonicParsing="false" text="⏹" />
                   <Button styleClass="toolBarButtons" fx:id="pause" onAction="#pausePressed" mnemonicParsing="false" text="⏸" />
