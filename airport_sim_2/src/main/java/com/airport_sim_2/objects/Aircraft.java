@@ -12,7 +12,7 @@ public class Aircraft {
     private final int altitude;
 
     private float fuel; // litres of fuel remaining
-    private float fuel_per_min = 10;
+    private float fuel_per_min = 100;
     private AircraftStatus status;
     private final Double scheduled_ts; // schedule timestamp for processing in seconds / ticks
     private Double process_ts; // actual timestamp for when the aircraft is processed
