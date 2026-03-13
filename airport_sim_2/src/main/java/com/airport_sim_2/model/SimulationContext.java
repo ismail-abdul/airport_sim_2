@@ -1,9 +1,7 @@
 package com.airport_sim_2.model;
 import java.util.List;
-import java.util.PriorityQueue;
 
 import com.airport_sim_2.controller.StatisticsCollector;
-import com.airport_sim_2.events.Event;
 import com.airport_sim_2.objects.Aircraft;
 import com.airport_sim_2.objects.Runway;
 import com.airport_sim_2.queues.HoldingPattern;
@@ -22,7 +20,6 @@ public class SimulationContext {
     private TakeOffQueue takeOffQueue;
     private List<Runway> runways;
     private StatisticsCollector statistics;
-    private PriorityQueue<Event> futureEventList;
     // minutes
     private final long landingDuration = 20; 
     private final long takeOffDuration = 15;
@@ -30,29 +27,13 @@ public class SimulationContext {
     private final long fuel_consumption_rate = 20;
     // max wait time for departing aircraft
     private final long max_wait_time = 30;
-
-    public PriorityQueue<Event> getFutureEventList() {
-        return futureEventList;
-    }
+    private double current_time = 0;
 
     public SimulationContext(HoldingPattern holdingPattern, TakeOffQueue takeOffQueue, List<Runway> runways, StatisticsCollector statistics) {
         this.holdingPattern = holdingPattern;
         this.takeOffQueue = takeOffQueue;
         this.runways = runways;
         this.statistics = statistics;
-        this.futureEventList = new PriorityQueue<>();
-    }
-
-    public void scheduleEvent(Event event) {
-        futureEventList.add(event);
-    }
-
-    public Event getNextEvent() {
-        return futureEventList.poll();
-    }
-
-    public boolean hasMoreEvents() {
-        return !futureEventList.isEmpty();
     }
 
     public HoldingPattern getHoldingPattern() {
@@ -66,7 +47,42 @@ public class SimulationContext {
     public List<Runway> getRunways() {
         return runways;
     }
+    
+    public double getCurrentTime() {
+        return current_time;
+    }
 
+    public void setCurrentTime(double newtime) {
+        current_time = newtime;
+    }
+
+    /* AI didn't cook with this once. Must not have had enough context to make a correct implementation choice */
+    // public Runway getAvailableRunway() {
+    //     for (int i = 0; i < runways.size(); i++) {
+    //         try {
+    //             Runway runway = runways.get(i);
+    //             return runway;
+    //         } catch (IndexOutOfBoundsException e) {
+    //             throw new IndexOutOfBoundsException("Index exceeds bounds of runway count");
+    //         }
+    //     }
+    //     return null;
+    // }
+
+
+    public Runway getAvailableTakeOffRunway() {
+        for (Runway r : runways) {
+            if (r.isAvailableForTakeoff()) {
+                return r;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * @return A Runway object with the matching runway id. If not found, returns <b>null</b>.
+     * @param runwayId
+     */
     public Runway getRunway(int runwayId) {
         return runways.stream().filter(r -> r.getId() == runwayId).findFirst().orElse(null);
     }
@@ -110,5 +126,17 @@ public class SimulationContext {
 
     public void tryScheduleLanding(int runwayId) {
         
+    }
+
+    /**
+     * Get runway for landing.
+     */
+    public Runway getLandingRunway() {
+        for (Runway r: runways) {
+            if (r.isAvailableForLanding()) {
+                return r;
+            }
+        }
+        return null;
     }
 }

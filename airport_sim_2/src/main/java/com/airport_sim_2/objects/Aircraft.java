@@ -9,19 +9,30 @@ public class Aircraft {
     private final String origin;
     private final String destination;
     private final float groundSpeed;
-    private final float altitude;
-    private float fuel; // minutes of fuel remaining        
+    private final int altitude;
+
+    private float fuel; // litres of fuel remaining
     private AircraftStatus status;
     private final Double scheduled_ts; // schedule timestamp for processing in seconds / ticks
     private Double process_ts; // actual timestamp for when the aircraft is processed
     
-    public Aircraft(String callsign, String operator, String origin, String destination, float groundSpeed, float altitude, float fuel, AircraftStatus status, Double scheduled_processing_timestamp) {
+    public Aircraft(String callsign,
+                    String operator, 
+                    String origin, 
+                    String destination, 
+                    float groundSpeed, 
+                    float fuel, 
+                    int altitude, 
+                    AircraftStatus status, 
+                    Double scheduled_processing_timestamp
+
+    ) {
         this.sequenceNumber = sequenceCounter++;
         this.callsign = callsign;
         this.operator = operator;
         this.origin = origin;
         this.destination = destination;
-        this.groundSpeed = groundSpeed;
+        this.groundSpeed = groundSpeed; //units of fuel per second/tick
         this.altitude = altitude;
         this.fuel = fuel;
         this.status = status;
@@ -55,7 +66,7 @@ public class Aircraft {
         return this.groundSpeed;
     }
 
-    public float getAltitude() {
+    public int getAltitude() {
         return this.altitude;
     }
 
@@ -74,7 +85,12 @@ public class Aircraft {
     public Double getActualTime() {
         return this.process_ts;
     }
-
+    
+    public void setActualTime(Double process_ts) {
+        assert process_ts >= 0;
+        this.process_ts = process_ts;
+    }
+    
     public void reduceFuel(float amount) {
         fuel -= amount;
         if (fuel < 0) {
@@ -85,10 +101,6 @@ public class Aircraft {
         if (fuel <= 10 && status == AircraftStatus.NORMAL) {
             status = AircraftStatus.FUEL;
         }
-    }
-
-    public void setActualTime(Double process_ts) {
-        this.process_ts = process_ts;
     }
 
     /**
